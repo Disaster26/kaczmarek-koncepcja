@@ -39,6 +39,13 @@
   <section class="hero" id="hero">
     <figure class="hero-foto">
       <img src="img/hero.jpg" alt="Schody dywanowe z dębu z ażurową, stalową balustradą" width="1300" height="700" fetchpriority="high">
+      <button class="hero-karta" type="button" data-film="film/film-1.mp4" data-plakat="film/film-1.jpg" aria-label="Obejrzyj film z realizacji">
+        <video class="petla" muted playsinline loop preload="none" poster="film/petla-1.jpg" aria-hidden="true">
+          <source data-src="film/petla-1.webm" type="video/webm">
+          <source data-src="film/petla-1.mp4" type="video/mp4">
+        </video>
+        <span class="hero-karta-opis"><span class="play" aria-hidden="true"></span>Film z realizacji</span>
+      </button>
     </figure>
     <div class="hero-in">
       <p class="hero-miejsce">Chocz, Wielkopolska - cała Polska i Niemcy</p>
@@ -103,6 +110,22 @@
       </div>
       <div class="galeria" id="galeria"></div>
       <div class="wiecej-wrap"><button class="btn btn-jasny" id="wiecej">Pokaż więcej zdjęć</button></div>
+    </div>
+  </section>
+
+  <section class="sekcja filmy" id="filmy">
+    <div class="wrap">
+      <div class="naglowek">
+        <h2>Filmy z realizacji</h2>
+        <p>Krótkie nagrania z gotowych schodów - widać na nich to, czego nie odda zdjęcie: światło na stopniach, przejścia i wykończenie detali.</p>
+      </div>
+      <div class="filmy-siatka">
+        <button class="film-kafel" type="button" data-film="film/film-1.mp4" data-plakat="film/film-1.jpg">
+          <img src="film/film-1.jpg" alt="Schody na beton z dębowymi stopniami i podświetleniem LED" loading="lazy" width="480" height="848">
+          <span class="play" aria-hidden="true"></span>
+          <span class="film-kafel-opis"><strong>Schody z podświetleniem stopni</strong><span>0:34</span></span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -206,6 +229,10 @@
   <a href="#kontakt" class="mob-cta">Zamów wycenę</a>
 </div>
 
+<div class="wm" id="wm" hidden role="dialog" aria-modal="true" aria-label="Film z realizacji">
+  <button class="lb-x" id="wmX" aria-label="Zamknij">&times;</button>
+  <video id="wmV" controls playsinline preload="none"></video>
+</div>
 <div class="lb" id="lb" hidden>
   <button class="lb-x" id="lbX" aria-label="Zamknij">&times;</button>
   <button class="lb-nav lb-prev" id="lbPrev" aria-label="Poprzednie zdjęcie">&#8249;</button>

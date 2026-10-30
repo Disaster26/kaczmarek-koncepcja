@@ -123,3 +123,41 @@
     location.href = 'mailto:biuro@kaczmarekschody.pl?subject=' + encodeURIComponent('Zapytanie o schody') + '&body=' + encodeURIComponent(tresc);
   });
 })();
+
+/* filmy (30.10): petla w hero laduje sie dopiero po wczytaniu strony i tylko przy dobrym polaczeniu,
+   pelny film pobiera sie dopiero po kliknieciu */
+(function () {
+  var karta = document.querySelector('.hero-karta');
+  var petla = karta && karta.querySelector('.petla');
+  function wolno() {
+    var c = navigator.connection;
+    return (c && (c.saveData || /2g/.test(c.effectiveType || ''))) || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  function startPetli() {
+    if (!petla || wolno()) return;
+    petla.querySelectorAll('source').forEach(function (s) { s.src = s.getAttribute('data-src'); });
+    petla.load();
+    petla.addEventListener('playing', function () { petla.classList.add('gra'); }, { once: true });
+    var p = petla.play(); if (p && p.catch) p.catch(function () {});
+  }
+  if (document.readyState === 'complete') setTimeout(startPetli, 300);
+  else addEventListener('load', function () { setTimeout(startPetli, 300); });
+
+  var wm = document.getElementById('wm'), wv = document.getElementById('wmV');
+  function otworz(el) {
+    wv.poster = el.getAttribute('data-plakat') || '';
+    wv.src = el.getAttribute('data-film');
+    wm.hidden = false; document.body.style.overflow = 'hidden';
+    if (petla) petla.pause();
+    var p = wv.play(); if (p && p.catch) p.catch(function () {});
+  }
+  function zamknij() {
+    wv.pause(); wv.removeAttribute('src'); wv.load();
+    wm.hidden = true; document.body.style.overflow = '';
+    if (petla && petla.classList.contains('gra')) { var p = petla.play(); if (p && p.catch) p.catch(function () {}); }
+  }
+  document.querySelectorAll('[data-film]').forEach(function (el) { el.addEventListener('click', function () { otworz(el); }); });
+  document.getElementById('wmX').addEventListener('click', zamknij);
+  wm.addEventListener('click', function (e) { if (e.target === wm) zamknij(); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && !wm.hidden) zamknij(); });
+})();
