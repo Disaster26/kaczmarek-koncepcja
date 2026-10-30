@@ -31,7 +31,11 @@
   var galeria = document.getElementById('galeria');
   var wiecej = document.getElementById('wiecej');
   var filtr = 'all', limit = 12, widoczne = [];
+  /* 30.10: galeria jest tylko na realizacje.html; ?typ=dyw otwiera od razu dany rodzaj */
+  var typZAdresu = (location.search.match(/[?&]typ=(\w+)/) || [])[1];
+  if (typZAdresu && TYPY[typZAdresu]) filtr = typZAdresu;
   function rysuj() {
+    if (!galeria) return;
     var lista = zdjecia.filter(function (z) { return filtr === 'all' || z.typ === filtr; });
     widoczne = lista;
     galeria.innerHTML = '';
@@ -54,7 +58,8 @@
       filtr = c.dataset.filtr; limit = 12; rysuj();
     });
   });
-  wiecej.addEventListener('click', function () { limit += 12; rysuj(); });
+  if (wiecej) wiecej.addEventListener('click', function () { limit += 12; rysuj(); });
+  document.querySelectorAll('.chip[data-filtr]').forEach(function (x) { x.classList.toggle('aktywny', x.dataset.filtr === filtr); });
   rysuj();
 
   /* lightbox */
@@ -101,8 +106,9 @@
   var kontakt = document.getElementById('kontakt');
   var zaAkcjami = false, wKontakcie = false;
   function pasek() { mob.classList.toggle('widac', zaAkcjami && !wKontakcie); }
+  if (!akcje) { zaAkcjami = true; pasek(); }
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (w) {
+    if (akcje) new IntersectionObserver(function (w) {
       zaAkcjami = !w[0].isIntersecting && w[0].boundingClientRect.top < 0; pasek();
     }).observe(akcje);
     new IntersectionObserver(function (w) { wKontakcie = w[0].isIntersecting; pasek(); }, { threshold: 0.15 }).observe(kontakt);
