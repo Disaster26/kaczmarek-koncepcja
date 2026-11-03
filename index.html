@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Wizualizacja koncepcyjna nowej strony głównej. Treści, dane i zdjęcia pochodzą z kaczmarekschody.pl -->
+<!-- Wersja robocza nowej strony Schody Kaczmarek -->
 
 <header class="top" id="top">
   <div class="wrap top-in">
@@ -39,10 +39,10 @@
   <section class="hero" id="hero">
     <figure class="hero-foto">
       <img src="img/hero.jpg" alt="Schody dywanowe z dębu z ażurową, stalową balustradą" width="1300" height="700" fetchpriority="high">
-      <button class="hero-karta" type="button" data-film="film/film-1.mp4" data-plakat="film/film-1.jpg" aria-label="Obejrzyj film z realizacji">
-        <video class="petla" muted playsinline loop preload="none" poster="film/petla-1.jpg" aria-hidden="true">
-          <source data-src="film/petla-1.webm" type="video/webm">
-          <source data-src="film/petla-1.mp4" type="video/mp4">
+      <button class="hero-karta" type="button" data-film="film/film-3.mp4" data-plakat="film/film-3.jpg" aria-label="Obejrzyj film: schody z kaskadowym oświetleniem LED">
+        <video class="petla" muted playsinline loop preload="none" poster="film/petla-2.jpg" aria-hidden="true">
+          <source data-src="film/petla-2.webm" type="video/webm">
+          <source data-src="film/petla-2.mp4" type="video/mp4">
         </video>
         <span class="hero-karta-opis"><span class="play" aria-hidden="true"></span>Film z realizacji</span>
       </button>
@@ -98,13 +98,42 @@
     <div class="wrap">
       <div class="naglowek">
         <h2>Realizacje</h2>
-        <p>Kilka z wykonanych przez nas schodów. Pełną galerię według rodzajów schodów i filmy z gotowych realizacji znajdą Państwo na osobnej stronie.</p>
+        <p>Kilka z wykonanych przez nas schodów. Pełną galerię według rodzajów schodów i wszystkie filmy znajdą Państwo na osobnej stronie.</p>
       </div>
       <div class="skrot">
-        <a href="realizacje.html"><img src="img/dyw-2.jpg" alt="Schody dywanowe - realizacja" loading="lazy" decoding="async"></a>
-        <a href="realizacje.html"><img src="img/bol-2.jpg" alt="Schody bolcowe - realizacja" loading="lazy" decoding="async"></a>
-        <a href="realizacje.html"><img src="img/pol-2.jpg" alt="Schody policzkowe - realizacja" loading="lazy" decoding="async"></a>
-        <a href="realizacje.html#filmy" class="skrot-film"><img src="film/film-1.jpg" alt="Film z realizacji - schody z podświetleniem stopni" loading="lazy" decoding="async"><span class="play" aria-hidden="true"></span></a>
+        <a href="realizacje.html?typ=pod"><img src="img/dyw-pod-1.jpg" alt="Dębowe schody dywanowe podwieszane pod strop" loading="lazy" decoding="async" width="667" height="500"></a>
+        <a href="realizacje.html?typ=dyw"><img src="img/dyw-2.jpg" alt="Schody dywanowe - realizacja" loading="lazy" decoding="async"></a>
+        <a href="realizacje.html?typ=bol"><img src="img/bol-2.jpg" alt="Schody bolcowe - realizacja" loading="lazy" decoding="async"></a>
+        <a href="realizacje.html?typ=pol"><img src="img/pol-2.jpg" alt="Schody policzkowe - realizacja" loading="lazy" decoding="async"></a>
+      </div>
+      <div class="filmy-glowna">
+        <div class="filmy-glowna-tekst">
+          <h3>Filmy z realizacji</h3>
+          <p>Na nagraniu lepiej widać światło na stopniach i detale balustrady. Film uruchamia się po kliknięciu.</p>
+        </div>
+        <div class="filmy-rzad">
+          <figure class="film">
+            <button class="film-kafel" type="button" data-film="film/film-2.mp4" data-plakat="film/film-2.jpg" aria-label="Odtwórz film (0:23): Schody betonowe ze stopniami z dębu rustykalnego i kaskadowym oświetleniem LED">
+              <img src="film/film-2.jpg" alt="Schody betonowe ze stopniami z dębu rustykalnego i kaskadowym oświetleniem LED" loading="lazy" decoding="async" width="384" height="864">
+              <span class="play" aria-hidden="true"></span><span class="czas">0:23</span>
+            </button>
+            <figcaption>Oświetlenie kaskadowe na schodach betonowych, materiał stopni dąb rustykalny</figcaption>
+          </figure>
+          <figure class="film">
+            <button class="film-kafel" type="button" data-film="film/film-6.mp4" data-plakat="film/film-6.jpg" aria-label="Odtwórz film (0:17): Schody z dębu rustykalnego z czarnymi podstopniami i balustradą wycinaną laserowo">
+              <img src="film/film-6.jpg" alt="Schody z dębu rustykalnego z czarnymi podstopniami i balustradą wycinaną laserowo" loading="lazy" decoding="async" width="480" height="854">
+              <span class="play" aria-hidden="true"></span><span class="czas">0:17</span>
+            </button>
+            <figcaption>Stopnie dąb rustykalny, podstopnie i cokoły MDF malowane na czarno, balustrada metalowa wycinana laserowo (4 mm) malowana proszkowo</figcaption>
+          </figure>
+          <figure class="film">
+            <button class="film-kafel" type="button" data-film="film/film-5.mp4" data-plakat="film/film-5.jpg" aria-label="Odtwórz film (1:25): Czarna spawana balustrada z dębową poręczą przy schodach na beton">
+              <img src="film/film-5.jpg" alt="Czarna spawana balustrada z dębową poręczą przy schodach na beton" loading="lazy" decoding="async" width="360" height="642">
+              <span class="play" aria-hidden="true"></span><span class="czas">1:25</span>
+            </button>
+            <figcaption>Schody na beton, stopnie dąb 1 klasa, oświetlenie LED, balustrada spawana czarna malowana proszkowo</figcaption>
+          </figure>
+        </div>
       </div>
       <div class="wiecej-wrap"><a class="btn" href="realizacje.html">Wszystkie realizacje i filmy</a></div>
     </div>
@@ -201,7 +230,7 @@
   <div class="wrap stopka-in">
     <img src="img/logo.png" alt="Kaczmarek Schody" width="307" height="83" loading="lazy">
     <p>KACZMAREK SCHODY Krzysztof Kaczmarek, ul. Zapłocie 17A, 63-313 Chocz, NIP 617-000-58-09</p>
-    <p class="stopka-uwaga">Wizualizacja koncepcyjna nowej strony. Zdjęcia i treści pochodzą z kaczmarekschody.pl.</p>
+    <p class="stopka-uwaga">Wersja robocza nowej strony.</p>
   </div>
 </footer>
 

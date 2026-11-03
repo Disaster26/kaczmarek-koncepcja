@@ -12,9 +12,18 @@
   var klucze = Object.keys(TYPY);
   [2,3,4,5,6,7,8,9,10,11,1].forEach(function (i) {
     klucze.forEach(function (k) {
-      if (i <= TYPY[k].n) zdjecia.push({ typ: k, src: 'img/' + k + '-' + i + '.jpg', opis: TYPY[k].nazwa });
+      if (i <= TYPY[k].n) zdjecia.push({ typy: [k], src: 'img/' + k + '-' + i + '.jpg', opis: TYPY[k].nazwa });
     });
   });
+  /* 03.11: nowe zdjecia od klienta, wplecione w poczatek galerii */
+  var POD = 'Dębowe schody dywanowe podwieszane pod strop', WST = 'Schody dywanowe z wstęgą i giętymi relingami';
+  [
+    [1, 'dyw-pod-1', POD, 1], [5, 'dyw-wst-3', WST, 0], [9, 'dyw-pod-3', POD, 1], [14, 'dyw-wst-1', WST, 0],
+    [19, 'dyw-pod-2', POD, 1], [24, 'dyw-wst-2', WST, 0], [29, 'dyw-pod-4', POD, 1]
+  ].forEach(function (n) {
+    zdjecia.splice(n[0], 0, { typy: n[3] ? ['dyw', 'pod'] : ['dyw'], src: 'img/' + n[1] + '.jpg', opis: n[2] });
+  });
+  function ma(z, t) { return z.typy.indexOf(t) > -1; }
 
   /* menu */
   var burger = document.getElementById('burger');
@@ -33,10 +42,10 @@
   var filtr = 'all', limit = 12, widoczne = [];
   /* 30.10: galeria jest tylko na realizacje.html; ?typ=dyw otwiera od razu dany rodzaj */
   var typZAdresu = (location.search.match(/[?&]typ=(\w+)/) || [])[1];
-  if (typZAdresu && TYPY[typZAdresu]) filtr = typZAdresu;
+  if (typZAdresu && (TYPY[typZAdresu] || typZAdresu === 'pod')) filtr = typZAdresu;
   function rysuj() {
     if (!galeria) return;
-    var lista = zdjecia.filter(function (z) { return filtr === 'all' || z.typ === filtr; });
+    var lista = zdjecia.filter(function (z) { return filtr === 'all' || ma(z, filtr); });
     widoczne = lista;
     galeria.innerHTML = '';
     lista.slice(0, limit).forEach(function (z, idx) {
@@ -61,6 +70,9 @@
   if (wiecej) wiecej.addEventListener('click', function () { limit += 12; rysuj(); });
   document.querySelectorAll('.chip[data-filtr]').forEach(function (x) { x.classList.toggle('aktywny', x.dataset.filtr === filtr); });
   rysuj();
+  /* aktywny chip widoczny w przewijanym pasku filtrow na telefonie */
+  function pokazChip(c) { if (c && c.parentNode.scrollWidth > c.parentNode.clientWidth) c.parentNode.scrollLeft = c.offsetLeft - c.parentNode.offsetLeft - 16; }
+  pokazChip(document.querySelector('.chip[data-filtr].aktywny'));
 
   /* lightbox */
   var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
@@ -92,11 +104,25 @@
     x0 = null;
   });
 
+  /* filtr filmow (03.11): ?typ=bet|led|bal ustawia tez filtr filmow */
+  var filmy = document.querySelectorAll('#filmySiatka .film');
+  var fchipy = document.querySelectorAll('.chip[data-ffiltr]');
+  function filtrujFilmy(f) {
+    fchipy.forEach(function (x) { x.classList.toggle('aktywny', x.dataset.ffiltr === f); });
+    filmy.forEach(function (el) { el.hidden = f !== 'all' && (' ' + el.dataset.typy + ' ').indexOf(' ' + f + ' ') < 0; });
+  }
+  fchipy.forEach(function (c) { c.addEventListener('click', function () { filtrujFilmy(c.dataset.ffiltr); }); });
+  if (filmy.length && typZAdresu && document.querySelector('.chip[data-ffiltr="' + typZAdresu + '"]')) {
+    filtrujFilmy(typZAdresu);
+    pokazChip(document.querySelector('.chip[data-ffiltr="' + typZAdresu + '"]'));
+    if (!TYPY[typZAdresu] && !location.hash) document.getElementById('filmy').scrollIntoView();
+  }
+
   /* kafle rodzajow -> galeria danego typu */
   document.querySelectorAll('.kafel[data-typ]').forEach(function (k) {
     k.addEventListener('click', function () {
       var t = k.dataset.typ;
-      otworz(zdjecia.filter(function (z) { return z.typ === t; }), 0);
+      otworz(zdjecia.filter(function (z) { return ma(z, t); }), 0);
     });
   });
 
@@ -153,6 +179,7 @@
   function otworz(el) {
     wv.poster = el.getAttribute('data-plakat') || '';
     wv.src = el.getAttribute('data-film');
+    wv.muted = true;
     wm.hidden = false; document.body.style.overflow = 'hidden';
     if (petla) petla.pause();
     var p = wv.play(); if (p && p.catch) p.catch(function () {});

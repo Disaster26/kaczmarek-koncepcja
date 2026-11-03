@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Wizualizacja koncepcyjna nowej strony głównej. Treści, dane i zdjęcia pochodzą z kaczmarekschody.pl -->
+<!-- Wersja robocza nowej strony Schody Kaczmarek -->
 
 <header class="top" id="top">
   <div class="wrap top-in">
@@ -55,6 +55,7 @@
           <button class="chip" data-filtr="sio">Siodłane</button>
           <button class="chip" data-filtr="spi">Spiralne</button>
           <button class="chip" data-filtr="bet">Na beton</button>
+          <button class="chip" data-filtr="pod">Podwieszane</button>
         </div>
       </div>
       <div class="galeria" id="galeria"></div>
@@ -66,14 +67,57 @@
     <div class="wrap">
       <div class="naglowek">
         <h2>Filmy z realizacji</h2>
-        <p>Krótkie nagrania z gotowych schodów - widać na nich to, czego nie odda zdjęcie: światło na stopniach, przejścia i wykończenie detali.</p>
+        <p>Krótkie nagrania z gotowych schodów - widać na nich to, czego nie odda zdjęcie: światło na stopniach, przejścia i wykończenie detali. Film pobiera się dopiero po kliknięciu, domyślnie bez dźwięku.</p>
       </div>
-      <div class="filmy-siatka">
-        <button class="film-kafel" type="button" data-film="film/film-1.mp4" data-plakat="film/film-1.jpg">
-          <img src="film/film-1.jpg" alt="Schody na beton z dębowymi stopniami i podświetleniem LED" loading="lazy" width="480" height="848">
-          <span class="play" aria-hidden="true"></span>
-          <span class="film-kafel-opis"><strong>Schody z podświetleniem stopni</strong><span>0:34</span></span>
-        </button>
+      <div class="filtry filtry-filmy" role="group" aria-label="Filtruj filmy">
+        <button class="chip aktywny" data-ffiltr="all">Wszystkie</button>
+        <button class="chip" data-ffiltr="bet">Na beton</button>
+        <button class="chip" data-ffiltr="led">Oświetlenie LED</button>
+        <button class="chip" data-ffiltr="bal">Balustrady metalowe</button>
+      </div>
+      <div class="filmy-siatka" id="filmySiatka">
+        <figure class="film" data-typy="bet led">
+          <button class="film-kafel" type="button" data-film="film/film-3.mp4" data-plakat="film/film-3.jpg" aria-label="Odtwórz film (0:28): Schody na beton z dębowymi stopniami, białymi podstopniami i kaskadowym oświetleniem LED">
+            <img src="film/film-3.jpg" alt="Schody na beton z dębowymi stopniami, białymi podstopniami i kaskadowym oświetleniem LED" loading="lazy" decoding="async" width="384" height="864">
+            <span class="play" aria-hidden="true"></span><span class="czas">0:28</span>
+          </button>
+          <figcaption>Schody na beton, stopnie dąb naturalny, podstopnie i cokoły na górze stopnia MDF malowany na biało, oświetlenie LED kaskadowe</figcaption>
+        </figure>
+        <figure class="film" data-typy="bal">
+          <button class="film-kafel" type="button" data-film="film/film-6.mp4" data-plakat="film/film-6.jpg" aria-label="Odtwórz film (0:17): Schody z dębu rustykalnego z czarnymi podstopniami i balustradą wycinaną laserowo">
+            <img src="film/film-6.jpg" alt="Schody z dębu rustykalnego z czarnymi podstopniami i balustradą wycinaną laserowo" loading="lazy" decoding="async" width="480" height="854">
+            <span class="play" aria-hidden="true"></span><span class="czas">0:17</span>
+          </button>
+          <figcaption>Stopnie dąb rustykalny, podstopnie i cokoły MDF malowane na czarno, balustrada metalowa wycinana laserowo (4 mm) malowana proszkowo</figcaption>
+        </figure>
+        <figure class="film" data-typy="bet led">
+          <button class="film-kafel" type="button" data-film="film/film-2.mp4" data-plakat="film/film-2.jpg" aria-label="Odtwórz film (0:23): Schody betonowe ze stopniami z dębu rustykalnego i kaskadowym oświetleniem LED">
+            <img src="film/film-2.jpg" alt="Schody betonowe ze stopniami z dębu rustykalnego i kaskadowym oświetleniem LED" loading="lazy" decoding="async" width="384" height="864">
+            <span class="play" aria-hidden="true"></span><span class="czas">0:23</span>
+          </button>
+          <figcaption>Oświetlenie kaskadowe na schodach betonowych, materiał stopni dąb rustykalny</figcaption>
+        </figure>
+        <figure class="film" data-typy="bet led bal">
+          <button class="film-kafel" type="button" data-film="film/film-5.mp4" data-plakat="film/film-5.jpg" aria-label="Odtwórz film (1:25): Czarna spawana balustrada z dębową poręczą przy schodach na beton">
+            <img src="film/film-5.jpg" alt="Czarna spawana balustrada z dębową poręczą przy schodach na beton" loading="lazy" decoding="async" width="360" height="642">
+            <span class="play" aria-hidden="true"></span><span class="czas">1:25</span>
+          </button>
+          <figcaption>Schody na beton, stopnie dąb 1 klasa, oświetlenie LED, balustrada spawana czarna malowana proszkowo</figcaption>
+        </figure>
+        <figure class="film" data-typy="led bal">
+          <button class="film-kafel" type="button" data-film="film/film-4.mp4" data-plakat="film/film-4.jpg" aria-label="Odtwórz film (0:20): Schody z podestem, czarną balustradą z rurki i oświetleniem LED">
+            <img src="film/film-4.jpg" alt="Schody z podestem, czarną balustradą z rurki i oświetleniem LED" loading="lazy" decoding="async" width="382" height="850">
+            <span class="play" aria-hidden="true"></span><span class="czas">0:20</span>
+          </button>
+          <figcaption>Schody z podestem i balustradą z czarnej rurki malowanej proszkowo, oświetlenie LED kaskadowe</figcaption>
+        </figure>
+        <figure class="film" data-typy="bet led">
+          <button class="film-kafel" type="button" data-film="film/film-1.mp4" data-plakat="film/film-1.jpg" aria-label="Odtwórz film (0:34): Schody na beton z dębowymi stopniami i podświetleniem LED">
+            <img src="film/film-1.jpg" alt="Schody na beton z dębowymi stopniami i podświetleniem LED" loading="lazy" decoding="async" width="480" height="848">
+            <span class="play" aria-hidden="true"></span><span class="czas">0:34</span>
+          </button>
+          <figcaption>Schody na beton, stopnie dębowe, podświetlenie LED każdego stopnia</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -118,7 +162,7 @@
   <div class="wrap stopka-in">
     <img src="img/logo.png" alt="Kaczmarek Schody" width="307" height="83" loading="lazy">
     <p>KACZMAREK SCHODY Krzysztof Kaczmarek, ul. Zapłocie 17A, 63-313 Chocz, NIP 617-000-58-09</p>
-    <p class="stopka-uwaga">Wizualizacja koncepcyjna nowej strony. Zdjęcia i treści pochodzą z kaczmarekschody.pl.</p>
+    <p class="stopka-uwaga">Wersja robocza nowej strony.</p>
   </div>
 </footer>
 
