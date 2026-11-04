@@ -128,7 +128,7 @@
 
   /* dolny pasek na telefonie - dopiero po przewinieciu za przyciski hero */
   var mob = document.getElementById('mob');
-  var akcje = document.getElementById('heroAkcje');
+  var akcje = document.getElementById('heroAkcje') || document.querySelector('.podstrona-tytul');
   var kontakt = document.getElementById('kontakt');
   var zaAkcjami = false, wKontakcie = false;
   function pasek() { mob.classList.toggle('widac', zaAkcjami && !wKontakcie); }
@@ -193,4 +193,17 @@
   document.getElementById('wmX').addEventListener('click', zamknij);
   wm.addEventListener('click', function (e) { if (e.target === wm) zamknij(); });
   addEventListener('keydown', function (e) { if (e.key === 'Escape' && !wm.hidden) zamknij(); });
+})();
+
+/* 04.11: naglowek nad zdjeciem przezroczysty, po przewinieciu ciemny; odslanianie zdjec przy przewijaniu */
+(function () {
+  var top = document.getElementById('top');
+  function stan() { top.classList.toggle('przewiniete', scrollY > 40); }
+  stan(); addEventListener('scroll', stan, { passive: true });
+  var el = document.querySelectorAll('.odslon');
+  if (!('IntersectionObserver' in window)) { el.forEach(function (e) { e.classList.add('widac'); }); return; }
+  var io = new IntersectionObserver(function (w) {
+    w.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('widac'); io.unobserve(x.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  el.forEach(function (e) { io.observe(e); });
 })();
