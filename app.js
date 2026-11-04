@@ -156,24 +156,29 @@
   });
 })();
 
-/* filmy (30.10): petla w hero laduje sie dopiero po wczytaniu strony i tylko przy dobrym polaczeniu,
-   pelny film pobiera sie dopiero po kliknieciu */
+/* filmy (04.11): petle (tryptyk w hero, karta na podstronie) laduja sie dopiero po wczytaniu strony,
+   tylko widoczne i przy dobrym polaczeniu; pelny film pobiera sie dopiero po kliknieciu */
 (function () {
-  var karta = document.querySelector('.hero-karta');
-  var petla = karta && karta.querySelector('.petla');
+  var petle = [].slice.call(document.querySelectorAll('.petla'));
   function wolno() {
     var c = navigator.connection;
     return (c && (c.saveData || /2g/.test(c.effectiveType || ''))) || matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
   function startPetli() {
-    if (!petla || wolno()) return;
-    petla.querySelectorAll('source').forEach(function (s) { s.src = s.getAttribute('data-src'); });
-    petla.load();
-    petla.addEventListener('playing', function () { petla.classList.add('gra'); }, { once: true });
-    var p = petla.play(); if (p && p.catch) p.catch(function () {});
+    if (wolno()) return;
+    petle.forEach(function (v) {
+      if (!v.parentNode.offsetWidth || v.dataset.start) return;
+      v.dataset.start = 1;
+      v.querySelectorAll('source').forEach(function (s) { s.src = s.getAttribute('data-src'); });
+      v.load();
+      v.addEventListener('playing', function () { v.classList.add('gra'); }, { once: true });
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
   }
-  if (document.readyState === 'complete') setTimeout(startPetli, 300);
-  else addEventListener('load', function () { setTimeout(startPetli, 300); });
+  function poWczytaniu() { setTimeout(startPetli, 300); }
+  if (document.readyState === 'complete') poWczytaniu(); else addEventListener('load', poWczytaniu);
+  /* po obroceniu telefonu / poszerzeniu okna moga pojawic sie kolejne panele */
+  addEventListener('resize', function () { clearTimeout(startPetli.t); startPetli.t = setTimeout(startPetli, 400); });
 
   var wm = document.getElementById('wm'), wv = document.getElementById('wmV');
   function otworz(el) {
@@ -181,13 +186,13 @@
     wv.src = el.getAttribute('data-film');
     wv.muted = true;
     wm.hidden = false; document.body.style.overflow = 'hidden';
-    if (petla) petla.pause();
+    petle.forEach(function (v) { v.pause(); });
     var p = wv.play(); if (p && p.catch) p.catch(function () {});
   }
   function zamknij() {
     wv.pause(); wv.removeAttribute('src'); wv.load();
     wm.hidden = true; document.body.style.overflow = '';
-    if (petla && petla.classList.contains('gra')) { var p = petla.play(); if (p && p.catch) p.catch(function () {}); }
+    petle.forEach(function (v) { if (v.classList.contains('gra')) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } });
   }
   document.querySelectorAll('[data-film]').forEach(function (el) { el.addEventListener('click', function () { otworz(el); }); });
   document.getElementById('wmX').addEventListener('click', zamknij);
@@ -197,6 +202,8 @@
 
 /* 04.11: naglowek nad zdjeciem przezroczysty, po przewinieciu ciemny; odslanianie zdjec przy przewijaniu */
 (function () {
+  var hero = document.querySelector('.hero');
+  if (hero) requestAnimationFrame(function () { requestAnimationFrame(function () { hero.classList.add('wejscie'); }); });
   var top = document.getElementById('top');
   function stan() { top.classList.toggle('przewiniete', scrollY > 40); }
   stan(); addEventListener('scroll', stan, { passive: true });

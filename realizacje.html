@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261104c">
+<link rel="stylesheet" href="style.css?v=20261104f">
 <script>document.documentElement.className='js'</script>
 </head>
 <body class="podstrona">
@@ -19,10 +19,7 @@
 
 <header class="top na-hero" id="top">
   <div class="wrap top-in">
-    <a href="index.html#top" class="logo" aria-label="Schody Kaczmarek - strona główna">
-      <svg class="znak" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="1"/><path d="M7 37.5h9.5v-9h8.5v-9h8.5v-9h7.5"/></svg>
-      <span class="logo-txt"><span>Kaczmarek</span><span>Schody</span></span>
-    </a>
+    <a href="index.html#top" class="logo" aria-label="Schody Kaczmarek - strona główna"><img src="img/logo-jasne.png" alt="Kaczmarek Schody" width="307" height="83"></a>
     <nav class="menu" id="menu" aria-label="Menu główne">
       <a href="index.html#rodzaje">Rodzaje schodów</a>
       <a href="realizacje.html">Realizacje</a>
@@ -41,11 +38,17 @@
 
 <main>
   <section class="podstrona-tytul">
-    <img class="pt-foto" src="img/dyw-3.jpg" alt="" aria-hidden="true" width="1300" height="975" fetchpriority="high">
-    <div class="wrap">
-      <p class="okruszki"><a href="index.html">Strona główna</a> / Realizacje</p>
-      <h1>Realizacje i filmy</h1>
-      <p class="lead">Wybrane schody, które zaprojektowaliśmy, wykonaliśmy i zamontowaliśmy u klientów - zdjęcia według rodzaju schodów i krótkie filmy z gotowych realizacji.</p>
+    <img class="pt-foto" src="img/dyw-9.jpg" alt="Dębowe schody dywanowe z giętą poręczą i balustradą ze szkła przy kamiennej ścianie" width="1460" height="978" fetchpriority="high">
+    <div class="wrap pt-in">
+      <div class="pt-tekst">
+        <p class="okruszki"><a href="index.html">Strona główna</a> / Realizacje</p>
+        <h1>Realizacje i&nbsp;filmy</h1>
+        <p class="lead">Wybrane schody, które zaprojektowaliśmy, wykonaliśmy i zamontowaliśmy u klientów - zdjęcia według rodzaju schodów i krótkie filmy z gotowych realizacji.</p>
+      </div>
+      <button class="hero-karta" type="button" data-film="film/film-1.mp4" data-plakat="film/film-1.jpg" aria-label="Obejrzyj film: schody na beton z podświetleniem LED każdego stopnia">
+        <video class="petla" muted playsinline loop preload="none" poster="film/petla-1.jpg" aria-hidden="true"><source data-src="film/petla-1.mp4" type="video/mp4"></video>
+        <span class="hero-karta-opis"><span class="play" aria-hidden="true"></span>Film z realizacji</span>
+      </button>
     </div>
   </section>
 
@@ -166,10 +169,7 @@
 
 <footer class="stopka">
   <div class="wrap stopka-in">
-    <a href="#top" class="logo" aria-label="Schody Kaczmarek - do góry">
-      <svg class="znak" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="1"/><path d="M7 37.5h9.5v-9h8.5v-9h8.5v-9h7.5"/></svg>
-      <span class="logo-txt"><span>Kaczmarek</span><span>Schody</span></span>
-    </a>
+    <a href="#top" class="logo" aria-label="Schody Kaczmarek - do góry"><img src="img/logo-jasne.png" alt="Kaczmarek Schody" width="307" height="83" loading="lazy"></a>
     <p>KACZMAREK SCHODY Krzysztof Kaczmarek, ul. Zapłocie 17A, 63-313 Chocz, NIP 617-000-58-09</p>
     <p class="stopka-uwaga">Wersja robocza nowej strony.</p>
   </div>
@@ -191,6 +191,6 @@
   <button class="lb-nav lb-next" id="lbNext" aria-label="Następne zdjęcie">&#8250;</button>
 </div>
 
-<script src="app.js?v=20261104c"></script>
+<script src="app.js?v=20261104f"></script>
 </body>
 </html>
