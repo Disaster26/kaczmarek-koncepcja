@@ -93,9 +93,9 @@
     b.setAttribute('data-opis', z.o);
     b.setAttribute('aria-label', z.o + ' - powiększ zdjęcie');
     var i = document.createElement('img');
-    var duze = z.w > 900;
-    i.src = 'img/' + z.s + (duze ? '-800' : '') + '.webp';
-    if (duze) { i.srcset = 'img/' + z.s + '-800.webp 800w, img/' + z.s + '.webp ' + z.w + 'w'; i.sizes = '(min-width:1280px) 46vw, (min-width:761px) 31vw, 50vw'; }
+    var war = [640, 960, 1280].filter(function (t) { return z.w > t * 1.12; });
+    i.src = 'img/' + z.s + (war.length ? '-' + (war.indexOf(960) > -1 ? 960 : war[war.length - 1]) : '') + '.webp';
+    if (war.length) { i.srcset = war.map(function (t) { return 'img/' + z.s + '-' + t + '.webp ' + t + 'w'; }).concat('img/' + z.s + '.webp ' + z.w + 'w').join(', '); i.sizes = '(min-width:1280px) 420px, (min-width:761px) 31vw, 50vw'; }
     i.alt = z.o; i.width = z.w; i.height = z.h; i.loading = 'lazy'; i.decoding = 'async';
     b.appendChild(i);
     return b;
