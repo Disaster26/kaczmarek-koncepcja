@@ -311,6 +311,29 @@
   });
 })();
 
+/* leniwe obrazy (data-src) - ladowane ok. 1 ekran przed wejsciem w widok, w karuzelach takze w poziomie */
+(function () {
+  var el = [].slice.call(document.querySelectorAll('img[data-lz]'));
+  function laduj(i) {
+    if (i.getAttribute('data-srcset')) i.srcset = i.getAttribute('data-srcset');
+    if (i.getAttribute('data-src')) i.src = i.getAttribute('data-src');
+    i.removeAttribute('data-lz');
+  }
+  if (!('IntersectionObserver' in window)) { el.forEach(laduj); return; }
+  var io = new IntersectionObserver(function (w) {
+    w.forEach(function (x) { if (x.isIntersecting) { laduj(x.target); io.unobserve(x.target); } });
+  }, { rootMargin: '500px 600px' });
+  el.forEach(function (i) { io.observe(i); });
+  /* karuzela: przy pierwszym dotyku / przewinieciu / strzalce doladuj jej pozostale zdjecia (sa przyciete przez pas, wiec IO ich nie widzi) */
+  document.querySelectorAll('[data-tor]').forEach(function (t) {
+    function wszystkie() { t.querySelectorAll('img[data-lz]').forEach(function (i) { laduj(i); io.unobserve(i); }); }
+    ['pointerdown', 'touchstart', 'mouseenter', 'focusin'].forEach(function (ev) { t.addEventListener(ev, wszystkie, { once: true, passive: true }); });
+    t.querySelector('.tor-pas').addEventListener('scroll', wszystkie, { once: true, passive: true });
+  });
+  /* powiekszenie: przed otwarciem doladuj */
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('button[data-pelne]'); if (b) { var i = b.querySelector('img[data-lz]'); if (i) laduj(i); } }, true);
+})();
+
 /* karuzele: przewijanie palcem (natywnie), przeciaganie mysza, strzalki, licznik; przeciagniecie nie klika */
 (function () {
   document.querySelectorAll('[data-tor]').forEach(function (t) {
