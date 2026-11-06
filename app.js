@@ -1,4 +1,4 @@
-/* Kaczmarek Schody - wersja do wdrozenia (05.11.2026) */
+/* Kaczmarek Schody - "stopien po stopniu" (06.11.2026) */
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var TYPY = { dyw: 'Schody dywanowe', pol: 'Schody policzkowe', bol: 'Schody bolcowe', sio: 'Schody siodłane', spi: 'Schody spiralne', bet: 'Schody na beton', pod: 'Podwieszane', wst: 'Z wstęgą' };
@@ -65,19 +65,20 @@
     x0 = null;
   });
   document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('.galeria button[data-pelne]');
+    var b = e.target.closest && e.target.closest('[data-lb] button[data-pelne]');
     if (!b) return;
-    var przyciski = [].slice.call(b.parentNode.querySelectorAll('button[data-pelne]'));
+    var box = b.closest('[data-lb]');
+    var przyciski = [].slice.call(box.querySelectorAll('button[data-pelne]'));
     var l = przyciski.map(function (x) { return { src: x.getAttribute('data-pelne'), opis: x.getAttribute('data-opis') }; });
     var pelna = galeriaPelna();
-    if (pelna && b.parentNode.id === 'galeria') l = pelna;   /* realizacje: caly wynik filtra, nie tylko widoczne */
+    if (pelna && box.id === 'galeria') l = pelna;   /* realizacje: caly wynik filtra, nie tylko widoczne */
     otworzZdjecie(l, przyciski.indexOf(b));
   });
 
   /* ---------------- realizacje.html: filtr i "pokaz wiecej" (pierwsze 10 jest w HTML) */
   var galeria = $('galeria'), wiecej = $('wiecej'), daneEl = $('galeriaDane');
   var DANE = daneEl ? JSON.parse(daneEl.textContent) : null;
-  var filtr = 'all', limit = 10;
+  var filtr = 'all', limit = 12;
   var typZAdresu = (location.search.match(/[?&]typ=(\w+)/) || [])[1];
   if (DANE && typZAdresu && TYPY[typZAdresu]) filtr = typZAdresu;
   function wynik() { return DANE.filter(function (z) { return filtr === 'all' || z.t.indexOf(filtr) > -1; }); }
@@ -112,9 +113,9 @@
   }
   if (DANE) {
     chipy.forEach(function (c) {
-      c.addEventListener('click', function () { filtr = c.getAttribute('data-filtr'); limit = 10; zaznacz(chipy, 'data-filtr', filtr); rysuj(true); });
+      c.addEventListener('click', function () { filtr = c.getAttribute('data-filtr'); limit = 12; zaznacz(chipy, 'data-filtr', filtr); rysuj(true); });
     });
-    wiecej.addEventListener('click', function () { limit += 10; rysuj(false); });
+    wiecej.addEventListener('click', function () { limit += 12; rysuj(false); });
     zaznacz(chipy, 'data-filtr', filtr);
     rysuj(filtr !== 'all');
   }
@@ -147,15 +148,65 @@
     }
   }
 
-  /* ---------------- mapa Google dopiero po kliknieciu */
-  var mp = $('mapaPokaz');
-  if (mp) mp.addEventListener('click', function () {
+  /* ---------------- zgoda na cookies (12 miesiecy: localStorage + cookie ks_zgoda) i mapa Google */
+  var ZG = 'ks_zgoda', DNI = 365;
+  function zgodaCzytaj() {
+    try { var z = JSON.parse(localStorage.getItem(ZG) || 'null'); if (z && z.t && (Date.now() - z.t) < DNI * 864e5) return z; } catch (err) {}
+    var m = document.cookie.match(/(?:^|; )ks_zgoda=([^;]+)/);
+    if (m) { var a = decodeURIComponent(m[1]).split('|'); return { mapy: a[0] === '1', t: +a[1] || Date.now() }; }
+    return null;
+  }
+  var ZGODA = zgodaCzytaj(), ck = $('ck');
+  var mapaZaslona = $('mapa') ? $('mapa').innerHTML : '';
+  function mapaWstaw() {
+    var m = $('mapa'); if (!m || m.querySelector('iframe')) return;
     var f = document.createElement('iframe');
     f.title = 'Mapa dojazdu - Chocz, ul. Zapłocie 17A';
-    f.src = 'https://maps.google.com/maps?q=Zap%C5%82ocie%2017A%2C%2063-313%20Chocz&z=13&output=embed';
+    f.src = 'https://maps.google.com/maps?q=Zap%C5%82ocie%2017A%2C%2063-313%20Chocz&z=13&hl=pl&output=embed';
     f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-    var m = $('mapa'); m.innerHTML = ''; m.appendChild(f); f.focus();
-  });
+    f.setAttribute('loading', 'lazy');
+    m.innerHTML = ''; m.appendChild(f);
+  }
+  function podepnijPokaz() {
+    var mp = $('mapaPokaz');
+    if (mp) mp.addEventListener('click', function () { var z = ZGODA || {}; z.mapy = true; zgodaZapisz(z); banerZamknij(); });
+  }
+  function zastosuj() {
+    var m = $('mapa'); if (!m) return;
+    if (ZGODA && ZGODA.mapy) mapaWstaw();
+    else if (m.querySelector('iframe')) { m.innerHTML = mapaZaslona; podepnijPokaz(); }
+  }
+  function zgodaZapisz(z) {
+    z.t = Date.now();
+    try { localStorage.setItem(ZG, JSON.stringify(z)); } catch (err) {}
+    document.cookie = ZG + '=' + encodeURIComponent((z.mapy ? '1' : '0') + '|' + z.t) + '; max-age=' + (DNI * 86400) + '; path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+    ZGODA = z; zastosuj();
+  }
+  function banerPokaz(ust) {
+    if (!ck) return;
+    ck.hidden = false;
+    $('ckMapy').checked = !!(ZGODA && ZGODA.mapy);
+    $('ckUst').hidden = !ust;
+    ck.querySelector('[data-ck="zapisz"]').hidden = !ust;
+    ck.querySelector('[data-ck="ustawienia"]').hidden = !!ust;
+    ck.querySelector('[data-ck="ustawienia"]').setAttribute('aria-expanded', ust ? 'true' : 'false');
+  }
+  function banerZamknij() { if (ck) ck.hidden = true; }
+  if (ck) {
+    ck.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-ck]'); if (!b) return;
+      var a = b.getAttribute('data-ck');
+      if (a === 'wszystkie') { zgodaZapisz({ mapy: true }); banerZamknij(); }
+      else if (a === 'niezbedne') { zgodaZapisz({ mapy: false }); banerZamknij(); }
+      else if (a === 'ustawienia') { banerPokaz(true); $('ckMapy').focus(); }
+      else if (a === 'zapisz') { zgodaZapisz({ mapy: $('ckMapy').checked }); banerZamknij(); }
+    });
+    if (!ZGODA) banerPokaz(false);
+  }
+  document.querySelectorAll('[data-cookies-ustaw]').forEach(function (b) { b.addEventListener('click', function () { banerPokaz(true); }); });
+  podepnijPokaz();
+  zastosuj();
+  document.querySelectorAll('[data-rok]').forEach(function (x) { x.textContent = new Date().getFullYear(); });
 
   /* ---------------- formularz: walidacja + wysylka na /wyslij.php (adres w body[data-form]; na podgladzie brak) */
   var form = $('formularz'), info = $('formInfo');
@@ -257,6 +308,55 @@
     if (wm.hidden) return;
     if (e.key === 'Escape') zamknij();
     if (e.key === 'Tab') { e.preventDefault(); (document.activeElement === wx ? wv : wx).focus(); }
+  });
+})();
+
+/* karuzele: przewijanie palcem (natywnie), przeciaganie mysza, strzalki, licznik; przeciagniecie nie klika */
+(function () {
+  document.querySelectorAll('[data-tor]').forEach(function (t) {
+    var pas = t.querySelector('.tor-pas'), wst = t.querySelector('.tor-wst'), dal = t.querySelector('.tor-dal'), licz = t.querySelector('.tor-licz');
+    var el = pas.children, n = el.length;
+    function cele() { var o = el[0].offsetLeft, m = pas.scrollWidth - pas.clientWidth; return [].map.call(el, function (x) { return Math.min(m, x.offsetLeft - o); }); }
+    function nr() { var c = cele(), b = 0; c.forEach(function (v, i) { if (Math.abs(v - pas.scrollLeft) < Math.abs(c[b] - pas.scrollLeft)) b = i; }); return b; }
+    function stan() {
+      var max = pas.scrollWidth - pas.clientWidth - 2;
+      if (wst) wst.disabled = pas.scrollLeft <= 2;
+      if (dal) dal.disabled = pas.scrollLeft >= max;
+      if (licz) licz.textContent = (nr() + 1) + ' / ' + n;
+    }
+    function idz(d) {
+      var c = cele(), x = pas.scrollLeft, w = pas.clientWidth, cel;
+      if (d > 0) { cel = c.filter(function (v, i) { return v > x + 4 && (c[i] + el[i].offsetWidth > x + w - 4 || v >= x + w * 0.5); })[0]; if (cel === undefined) cel = c[c.length - 1]; }
+      else { var p = c.filter(function (v) { return v < x - 4 && v >= x - w; }); cel = p.length ? p[0] : (c.filter(function (v) { return v < x - 4; }).pop() || 0); }
+      pas.scrollTo({ left: cel, behavior: 'smooth' });
+    }
+    if (wst) wst.addEventListener('click', function () { idz(-1); });
+    if (dal) dal.addEventListener('click', function () { idz(1); });
+    pas.addEventListener('scroll', function () { cancelAnimationFrame(stan.r); stan.r = requestAnimationFrame(stan); }, { passive: true });
+    addEventListener('resize', stan);
+    stan();
+    var x0 = 0, s0 = 0, wcis = false, ruch = false;
+    pas.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      wcis = true; ruch = false; x0 = e.clientX; s0 = pas.scrollLeft;
+    });
+    addEventListener('pointermove', function (e) {
+      if (!wcis) return;
+      var dx = e.clientX - x0;
+      if (!ruch && Math.abs(dx) > 6) { ruch = true; pas.classList.add('ciagnie'); }
+      if (ruch) { pas.scrollLeft = s0 - dx; e.preventDefault(); }
+    });
+    addEventListener('pointerup', function () {
+      if (!wcis) return;
+      wcis = false;
+      if (!ruch) return;
+      var c = cele(), cel = c[nr()];
+      pas.classList.remove('ciagnie');
+      pas.scrollTo({ left: cel, behavior: 'smooth' });
+      setTimeout(function () { ruch = false; }, 0);
+    });
+    pas.addEventListener('click', function (e) { if (ruch) { e.preventDefault(); e.stopPropagation(); } }, true);
+    pas.addEventListener('dragstart', function (e) { e.preventDefault(); });
   });
 })();
 
