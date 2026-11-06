@@ -95,10 +95,10 @@ p{margin:0 0 1em;text-wrap:pretty}
 .hero-akcje{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:30px}
 
 /* ------------------------------------------------ sekcje */
-.sekcja{padding:clamp(72px,9vw,128px) 0}
+.sekcja{padding:clamp(64px,7vw,104px) 0}
 .szara{background:var(--szary)}
 .ciemna{background:var(--grafit);color:#e9eef0}
-.naglowek{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:clamp(36px,4vw,56px)}
+.naglowek{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:clamp(32px,3.4vw,48px)}
 .naglowek p{margin:0;color:var(--tx2);max-width:58ch}
 .ciemna .naglowek p{color:#aeb9be}
 .naglowek-sam{grid-template-columns:minmax(0,1fr)}
@@ -134,7 +134,7 @@ p{margin:0 0 1em;text-wrap:pretty}
 .of-opis h3 a:hover{color:var(--morski-d)}
 .of-opis p{grid-column:1;margin:0;color:var(--tx2);max-width:52ch}
 .of-opis .link{grid-column:2;grid-row:1 / span 2;align-self:end}
-.inne{margin-top:clamp(56px,6vw,88px);padding-top:clamp(28px,3vw,40px);border-top:1px solid var(--linia)}
+.inne{margin-top:clamp(48px,5vw,72px);padding-top:clamp(28px,3vw,40px);border-top:1px solid var(--linia)}
 .inne-gora{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:24px}
 .inne-gora p{margin:0;color:var(--tx2);max-width:60ch}
 .inne .tor-pas{--odst:clamp(14px,1.6vw,24px)}
@@ -202,7 +202,7 @@ p{margin:0 0 1em;text-wrap:pretty}
 .firma-foto img{width:100%;height:auto;aspect-ratio:4/3.4;object-fit:cover}
 .firma-tekst p{color:var(--tx2)}
 .firma-tekst p strong{color:var(--tx);font-weight:650}
-.opinie{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,40px);margin-top:clamp(56px,6vw,96px);padding-top:clamp(32px,3vw,44px);border-top:1px solid var(--linia)}
+.opinie{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,40px);margin-top:clamp(48px,5vw,80px);padding-top:clamp(32px,3vw,44px);border-top:1px solid var(--linia)}
 .opinie h3{grid-column:1/-1;margin-bottom:4px}
 .opinie blockquote{margin:0;padding:0}
 .opinie blockquote p{font-size:17.5px;line-height:1.55;margin:0 0 14px}
@@ -499,3 +499,72 @@ p{margin:0 0 1em;text-wrap:pretty}
   html{scroll-behavior:auto}
   .js .odslon img{transform:none;transition:none}
 }
+
+/* ------------------------------------------------ telefon: wersja zwarta (06.11, decyzja usera) */
+@media (max-width:760px){
+  .sekcja{padding:44px 0}
+  .tresc{padding:44px 0}
+  .zobacz{padding:36px 0}
+  p{margin-bottom:.8em}
+  h2{font-size:clamp(27px,7.6vw,32px)}
+  .z::before{width:30px;height:22px;margin-bottom:10px}
+  .naglowek{gap:10px;margin-bottom:20px}
+  .naglowek p{font-size:15.5px;line-height:1.55}
+  .oferta{gap:28px}
+  .of .tor-pas>button{aspect-ratio:3/2}
+  .of-opis{padding-top:12px;gap:4px}
+  .of-opis h3{font-size:20px}
+  .of-opis p{font-size:15.5px;line-height:1.5}
+  .of-opis .link{padding:6px 0;margin-top:4px;font-size:15.5px}
+  .link{padding:6px 0}
+  .inne{margin-top:32px;padding-top:20px}
+  .inne-gora{margin-bottom:14px}
+  .kafel strong{margin-top:10px}
+  .swiatlo-dol{margin-top:22px;gap:14px}
+  .swiatlo-dol p{font-size:15px}
+  .film figcaption{padding-top:10px}
+  .proces-tekst p{margin-top:10px}
+  .proces-in{gap:22px}
+  .schody-lista li{padding-bottom:14px}
+  .schody-lista strong{font-size:18px;margin-bottom:4px}
+  .schody-lista span{font-size:15px}
+  .rp button{height:220px}
+  .rp figcaption{padding-top:8px;font-size:14px}
+  .realizacje-dol{margin-top:18px;gap:12px}
+  .realizacje-dol p{font-size:15px}
+  .drewno-in,.firma-in,.kontakt-in,.tresc-in{gap:24px}
+  .detale{margin:4px 0 16px}
+  .detale li{padding-top:8px;padding-bottom:8px}
+  .detale li::before{top:14px}
+  .gatunki figcaption{padding-top:5px}
+  .firma-tekst p{font-size:16px}
+  .opinie{margin-top:32px;padding-top:22px;gap:18px}
+  .opinie blockquote p{font-size:16px;margin-bottom:8px}
+  .kontakt-dane>p{margin-top:10px}
+  .dane{margin:18px 0}
+  .dane li{padding:9px 0}
+  .dane a[href^="tel"]{font-size:18px}
+  .mapa{height:210px}
+  .mapa-zaslona{padding:20px;gap:10px}
+  .formularz{gap:12px;padding:24px var(--pad)}
+  .formularz input,.formularz select{min-height:46px;padding:10px 12px}
+  .formularz textarea{min-height:88px}
+  .dwa{gap:12px}
+  .dwa:first-of-type{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .firma-foto img{aspect-ratio:3/2}
+  .stopka{padding-top:40px}
+  .stopka-in{gap:22px 20px}
+  .st-firma p{margin-top:12px}
+  .st-dol{margin-top:6px;padding:16px 0 20px}
+  .tresc-tekst h2{margin:1.3em 0 .45em;font-size:24px}
+  .tresc-bok{padding:22px}
+  .punkty{margin-bottom:18px}
+  .punkty li{padding-top:7px;padding-bottom:7px}
+  .punkty li::before{top:13px}
+  .faq-lista summary{padding:15px 36px 15px 0;font-size:16.5px}
+  .faq-lista summary::after{top:21px}
+  .faq-lista details p{margin-bottom:16px}
+  .filtry-wrap{margin-bottom:18px}
+  .wiecej-wrap{margin-top:22px}
+}
+
