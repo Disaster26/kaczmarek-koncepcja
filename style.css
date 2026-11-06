@@ -461,7 +461,11 @@ p{margin:0 0 1em;text-wrap:pretty}
   .dwa{grid-template-columns:minmax(0,1fr)}
   .formularz{margin-inline:calc(-1*var(--pad));padding:28px var(--pad)}
   .formularz .btn{justify-self:stretch}
-  .stopka-in{grid-template-columns:minmax(0,1fr)}
+  .kontakt{padding-bottom:0}
+  .stopka-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 20px}
+  .stopka{font-size:14.5px}
+  .st-kontakt a[href^="tel"]{font-size:17px}
+  .st-kontakt a[href^="mailto"]{font-size:13.5px;word-break:break-all}
   .st-dol .wylinka-badge{margin-left:0}
   .mob{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:1fr 1.4fr;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--linia);transform:translateY(110%);transition:transform .3s var(--ease)}
   .mob.widac{transform:none}
