@@ -148,12 +148,38 @@
     }
   }
 
-  /* ---------------- zgoda na cookies (12 miesiecy: localStorage + cookie ks_zgoda) i mapa Google */
+  /* ---------------- zgoda na cookies (12 miesiecy: localStorage + cookie ks_zgoda): mapa Google + Statystyki (GA4) */
   var ZG = 'ks_zgoda', DNI = 365;
+  // Google Analytics 4 ze starej strony (Site Kit: tag Google GT-PBGJ6ZSK -> strumien G-BPENWEQQ2M).
+  // Consent Mode v2: domyslnie odmowa (skrypt w <head>), gtag.js wczytuje sie dopiero po zgodzie na "Statystyki".
+  // Na podgladzie (github.io, localhost) tag sie nie laduje, zeby nie liczyc testow w statystykach klienta.
+  var GA = 'G-BPENWEQQ2M', gaJest = false;
+  var PODGLAD = /(^|\.)github\.io$/i.test(location.hostname) || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || location.protocol === 'file:';
+  function gaZastosuj(z) {
+    if (!window.gtag) return;
+    var tak = !!(z && z.stat);
+    window.gtag('consent', 'update', { analytics_storage: tak ? 'granted' : 'denied' });
+    if (tak && !gaJest) {
+      gaJest = true;
+      if (PODGLAD && !/[?&]ga-test=1(&|$)/.test(location.search)) return;
+      var sc = document.createElement('script');
+      sc.async = true; sc.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA;
+      document.head.appendChild(sc);
+      window.gtag('js', new Date());
+      window.gtag('config', GA);
+    }
+    if (!tak) {   // cofniecie zgody: usun pliki _ga
+      var host = location.hostname.replace(/^www\./, '');
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (/^(_ga|_gid|_gat)/.test(n)) ['', '; domain=' + host, '; domain=.' + host].forEach(function (d) { document.cookie = n + '=; Max-Age=0; path=/' + d; });
+      });
+    }
+  }
   function zgodaCzytaj() {
     try { var z = JSON.parse(localStorage.getItem(ZG) || 'null'); if (z && z.t && (Date.now() - z.t) < DNI * 864e5) return z; } catch (err) {}
     var m = document.cookie.match(/(?:^|; )ks_zgoda=([^;]+)/);
-    if (m) { var a = decodeURIComponent(m[1]).split('|'); return { mapy: a[0] === '1', t: +a[1] || Date.now() }; }
+    if (m) { var a = decodeURIComponent(m[1]).split('|'); return { mapy: a[0] === '1', t: +a[1] || Date.now(), stat: a[2] === '1' }; }
     return null;
   }
   var ZGODA = zgodaCzytaj(), ck = $('ck');
@@ -172,6 +198,7 @@
     if (mp) mp.addEventListener('click', function () { var z = ZGODA || {}; z.mapy = true; zgodaZapisz(z); banerZamknij(); });
   }
   function zastosuj() {
+    gaZastosuj(ZGODA);
     var m = $('mapa'); if (!m) return;
     if (ZGODA && ZGODA.mapy) mapaWstaw();
     else if (m.querySelector('iframe')) { m.innerHTML = mapaZaslona; podepnijPokaz(); }
@@ -179,13 +206,16 @@
   function zgodaZapisz(z) {
     z.t = Date.now();
     try { localStorage.setItem(ZG, JSON.stringify(z)); } catch (err) {}
-    document.cookie = ZG + '=' + encodeURIComponent((z.mapy ? '1' : '0') + '|' + z.t) + '; max-age=' + (DNI * 86400) + '; path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+    document.cookie = ZG + '=' + encodeURIComponent((z.mapy ? '1' : '0') + '|' + z.t + '|' + (z.stat ? '1' : '0')) + '; max-age=' + (DNI * 86400) + '; path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+    var bylGa = gaJest && !z.stat;
     ZGODA = z; zastosuj();
+    if (bylGa && !PODGLAD) location.reload();   // GA byl juz wczytany - przeladowanie, zeby przestal dzialac
   }
   function banerPokaz(ust) {
     if (!ck) return;
     ck.hidden = false;
     $('ckMapy').checked = !!(ZGODA && ZGODA.mapy);
+    $('ckStat').checked = !!(ZGODA && ZGODA.stat);
     $('ckUst').hidden = !ust;
     ck.querySelector('[data-ck="zapisz"]').hidden = !ust;
     ck.querySelector('[data-ck="ustawienia"]').hidden = !!ust;
@@ -196,10 +226,10 @@
     ck.addEventListener('click', function (e) {
       var b = e.target.closest('[data-ck]'); if (!b) return;
       var a = b.getAttribute('data-ck');
-      if (a === 'wszystkie') { zgodaZapisz({ mapy: true }); banerZamknij(); }
-      else if (a === 'niezbedne') { zgodaZapisz({ mapy: false }); banerZamknij(); }
-      else if (a === 'ustawienia') { banerPokaz(true); $('ckMapy').focus(); }
-      else if (a === 'zapisz') { zgodaZapisz({ mapy: $('ckMapy').checked }); banerZamknij(); }
+      if (a === 'wszystkie') { zgodaZapisz({ mapy: true, stat: true }); banerZamknij(); }
+      else if (a === 'niezbedne') { zgodaZapisz({ mapy: false, stat: false }); banerZamknij(); }
+      else if (a === 'ustawienia') { banerPokaz(true); $('ckStat').focus(); }
+      else if (a === 'zapisz') { zgodaZapisz({ mapy: $('ckMapy').checked, stat: $('ckStat').checked }); banerZamknij(); }
     });
     if (!ZGODA) banerPokaz(false);
   }
