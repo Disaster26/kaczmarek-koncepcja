@@ -427,3 +427,185 @@
   }, { rootMargin: '0px 0px -8% 0px' });
   el.forEach(function (e) { io.observe(e); });
 })();
+
+/* konfigurator "Skomponuj swoje schody" (dodatki/): kroki, wybor kafla, pasek postepu, stan w adresie (?drewno=dab&porecz=c3...),
+   kompozycja z kodem, kopiowanie, link, wysylka na /wyslij.php (adres w body[data-form]; na podgladzie ekran sukcesu bez wysylki) */
+(function () {
+  var k = document.getElementById('konfigurator');
+  if (!k) return;
+  var KROKI = ['drewno', 'porecz', 'wypelnienie', 'slup', 'zakonczenie'];
+  var WSZ = KROKI.concat('kompozycja');
+  var NAZWY = { drewno: 'Drewno', porecz: 'Poręcz', wypelnienie: 'Wypełnienie', slup: 'Słup', zakonczenie: 'Zakończenie słupa' };
+  var stan = {}, biez = 'drewno';
+  var ruch = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(s, r) { return (r || k).querySelector(s); }
+  function $$(s, r) { return [].slice.call((r || k).querySelectorAll(s)); }
+  function panel(kr) { return $('.konf-panel[data-krok="' + kr + '"]'); }
+  function kafel(kr, id) { return id && id !== 'nie' ? $('.konf-panel[data-krok="' + kr + '"] .konf-kafel[data-id="' + id + '"]') : null; }
+  function laduj(p) { $$('img[data-lz]', p).forEach(function (i) { i.src = i.getAttribute('data-src'); i.removeAttribute('data-lz'); }); }
+  function zrodlo(b) { var i = b.querySelector('img'); return i.getAttribute('src') || i.getAttribute('data-src'); }
+  function kodKroku(kr) { var b = kafel(kr, stan[kr]); return b ? b.getAttribute('data-kod') : '?'; }
+  function kod() { return KROKI.map(kodKroku).join(' · '); }
+  function link() {
+    var p = new URLSearchParams();
+    KROKI.forEach(function (kr) { if (stan[kr]) p.set(kr, stan[kr]); });
+    var q = p.toString();
+    return location.origin + location.pathname + (q ? '?' + q : '') + '#konfigurator';
+  }
+  function zapiszAdres() { try { history.replaceState(null, '', link().replace(location.origin, '')); } catch (e) {} }
+
+  function postep() {
+    var gotowe = 0;
+    KROKI.forEach(function (kr) {
+      var b = kafel(kr, stan[kr]), w = $('[data-wyb="' + kr + '"]');
+      if (stan[kr]) gotowe++;
+      w.textContent = b ? b.getAttribute('data-kod') : (stan[kr] === 'nie' ? 'nie wiem' : 'do wyboru');
+    });
+    $$('.konf-postep button').forEach(function (b) {
+      var kr = b.getAttribute('data-idz');
+      b.classList.toggle('zrobione', !!stan[kr] && stan[kr] !== 'nie');
+      b.classList.toggle('pominiete', stan[kr] === 'nie');
+      if (kr === biez) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
+    $('#konfPasek').style.width = (biez === 'kompozycja' ? 100 : gotowe / KROKI.length * 100) + '%';
+    var akt = $('.konf-postep [aria-current]');
+    if (akt) { var ol = akt.closest('ol'); if (ol.scrollWidth > ol.clientWidth + 2) ol.scrollTo({ left: akt.parentNode.offsetLeft - ol.offsetLeft - 16, behavior: ruch ? 'smooth' : 'auto' }); }
+  }
+  function zaznacz(kr) {
+    var p = panel(kr);
+    $$('.konf-kafel', p).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-id') === stan[kr] ? 'true' : 'false'); });
+    var d = $('[data-dalej]', p); if (d) d.disabled = !stan[kr] || stan[kr] === 'nie';
+  }
+  function grupa(p, g) {
+    $$('.konf-typy .chip', p).forEach(function (c) { var a = c.getAttribute('data-grupa') === g; c.classList.toggle('aktywny', a); c.setAttribute('aria-pressed', a ? 'true' : 'false'); });
+    $$('.konf-siatka', p).forEach(function (s) { s.hidden = s.getAttribute('data-grupa') !== g; s.scrollLeft = 0; });
+    laduj(p);
+  }
+  function pokaz(kr, przewin) {
+    biez = kr;
+    WSZ.forEach(function (x) { var p = panel(x); p.hidden = x !== kr; p.classList.toggle('wchodzi', x === kr && ruch && przewin); });
+    var p = panel(kr);
+    if (kr === 'wypelnienie') { var b = kafel(kr, stan[kr]); grupa(p, b ? b.closest('.konf-siatka').getAttribute('data-grupa') : 'tralki'); }
+    laduj(p);
+    if (kr === 'kompozycja') wynik();
+    postep();
+    if (przewin) {
+      var r = $('.konf-ramka').getBoundingClientRect();
+      if (r.top < 0 || r.top > innerHeight * 0.5) $('.konf-ramka').scrollIntoView({ block: 'start', behavior: ruch ? 'smooth' : 'auto' });
+      var h = $('h3', p); if (h) h.focus({ preventScroll: true });
+    }
+  }
+  function nastepny(kr) { return WSZ[WSZ.indexOf(kr) + 1] || 'kompozycja'; }
+  function poprzedni(kr) { return WSZ[Math.max(0, WSZ.indexOf(kr) - 1)]; }
+
+  function wynik() {
+    var ul = $('#konfMini'); ul.innerHTML = '';
+    KROKI.forEach(function (kr) {
+      var b = kafel(kr, stan[kr]), li = document.createElement('li');
+      if (b) {
+        li.innerHTML = '<span class="konf-mfoto"><img alt="" width="160" height="160"></span><span class="konf-mt"><small></small><b></b></span><button type="button" class="konf-zmien">Zmień</button>';
+        li.querySelector('img').src = zrodlo(b);
+        li.querySelector('b').textContent = b.getAttribute('data-nazwa');
+      } else {
+        li.className = 'brak';
+        li.innerHTML = '<span class="konf-mfoto"></span><span class="konf-mt"><small></small><b>jeszcze nie wiem</b></span><button type="button" class="konf-zmien">Wybierz</button>';
+      }
+      li.querySelector('small').textContent = NAZWY[kr];
+      li.querySelector('.konf-zmien').setAttribute('data-idz', kr);
+      li.querySelector('.konf-zmien').setAttribute('aria-label', (b ? 'Zmień: ' : 'Wybierz: ') + NAZWY[kr]);
+      ul.appendChild(li);
+    });
+    $('#konfKod').textContent = kod();
+  }
+  function info(t) { var i = $('#konfInfo'); i.textContent = t; clearTimeout(info.t); info.t = setTimeout(function () { i.textContent = ''; }, 6000); }
+  function kopiuj(t, ok) {
+    function stary() {
+      var a = document.createElement('textarea'); a.value = t; a.setAttribute('readonly', ''); a.style.position = 'fixed'; a.style.opacity = '0';
+      document.body.appendChild(a); a.select(); var r = false; try { r = document.execCommand('copy'); } catch (e) {} document.body.removeChild(a);
+      info(r ? ok : 'Nie udało się skopiować. Kod: ' + t);
+    }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(function () { info(ok); }, stary); else stary();
+  }
+
+  /* zdarzenia */
+  k.addEventListener('click', function (e) {
+    var t = e.target.closest('button'); if (!t || !k.contains(t)) return;
+    var p = t.closest('.konf-panel'), kr = p ? p.getAttribute('data-krok') : null;
+    if (t.classList.contains('konf-kafel')) {
+      stan[kr] = t.getAttribute('data-id'); zaznacz(kr); postep(); zapiszAdres();
+      var d = $('[data-dalej]', p); if (d && ruch) { d.classList.remove('puls'); void d.offsetWidth; d.classList.add('puls'); }
+    } else if (t.hasAttribute('data-idz')) pokaz(t.getAttribute('data-idz'), true);
+    else if (t.hasAttribute('data-dalej')) pokaz(nastepny(kr), true);
+    else if (t.hasAttribute('data-wstecz')) pokaz(poprzedni(kr), true);
+    else if (t.hasAttribute('data-pomin')) { stan[kr] = 'nie'; zaznacz(kr); zapiszAdres(); pokaz(nastepny(kr), true); }
+    else if (t.hasAttribute('data-grupa')) grupa(p, t.getAttribute('data-grupa'));
+    else if (t.id === 'konfKopiuj') kopiuj(kod(), 'Skopiowano kod: ' + kod());
+    else if (t.id === 'konfLink') {
+      var u = link();
+      if (navigator.share && window.matchMedia('(pointer:coarse)').matches) navigator.share({ title: 'Moja kompozycja schodów - Kaczmarek Schody', text: 'Kod: ' + kod(), url: u }).catch(function () {});
+      else kopiuj(u, 'Skopiowano link do kompozycji.');
+    } else if (t.id === 'konfOdNowa') {
+      stan = {}; KROKI.forEach(zaznacz); zapiszAdres(); pokaz('drewno', true);
+    }
+  });
+
+  /* stan z adresu (link do udostepnienia) */
+  var q = new URLSearchParams(location.search), byl = false;
+  KROKI.forEach(function (kr) {
+    var v = (q.get(kr) || '').toLowerCase();
+    if (v && (v === 'nie' || kafel(kr, v))) { stan[kr] = v; byl = true; }
+    zaznacz(kr);
+  });
+  var start = 'drewno';
+  if (byl) { start = 'kompozycja'; for (var i = 0; i < KROKI.length; i++) if (!stan[KROKI[i]]) { start = KROKI[i]; break; } }
+  pokaz(start, false);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (w) { document.body.classList.toggle('w-konf', w[0].isIntersecting); }, { threshold: 0.25 }).observe($('.konf-ramka'));
+
+  /* formularz kompozycji */
+  var f = $('#konfForm'), fi = $('#konfFormInfo'), cel = document.body.getAttribute('data-form'), znacznik = null;
+  function pobierz() {
+    if (!cel || znacznik) return;
+    znacznik = fetch(cel + '?znacznik=1', { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { return j.z; }).catch(function () { znacznik = null; return ''; });
+  }
+  f.addEventListener('focusin', pobierz, { once: true });
+  function blad(pole, t) { fi.className = 'form-info blad'; fi.textContent = t; if (pole) { pole.setAttribute('aria-invalid', 'true'); pole.focus(); } }
+  f.addEventListener('input', function (e) { e.target.removeAttribute('aria-invalid'); });
+  f.addEventListener('change', function (e) { e.target.removeAttribute('aria-invalid'); });
+  function sukces(podglad) {
+    $('#konfKodOk').textContent = kod();
+    $('#konfPodglad').hidden = !podglad;
+    f.hidden = true; var w = $('#konfWyslane'); w.hidden = false; w.focus({ preventScroll: true });
+    if (w.getBoundingClientRect().top < 0) w.scrollIntoView({ block: 'start', behavior: ruch ? 'smooth' : 'auto' });
+  }
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var el = f.elements;
+    if (!el.imie.value.trim()) return blad(el.imie, 'Proszę podać imię i nazwisko.');
+    if (el.tel.value.replace(/\D/g, '').length < 9) return blad(el.tel, 'Proszę podać numer telefonu (min. 9 cyfr).');
+    if (el.email.value.trim() && !/^[^\s@,;<>"]+@[^\s@,;<>"]+\.[a-z]{2,}$/i.test(el.email.value.trim())) return blad(el.email, 'Proszę sprawdzić adres e-mail albo zostawić to pole puste.');
+    if (!el.zgoda.checked) return blad(el.zgoda, 'Proszę zaznaczyć zgodę na przetwarzanie danych.');
+    fi.className = 'form-info'; fi.textContent = '';
+    if (!cel) { sukces(true); return; }   // podglad: bez wysylki
+    var btn = f.querySelector('button[type=submit]');
+    btn.disabled = true; fi.textContent = 'Wysyłamy...';
+    pobierz();
+    var opis = KROKI.map(function (kr) { var b = kafel(kr, stan[kr]); return NAZWY[kr] + ': ' + (b ? b.getAttribute('data-nazwa') : 'jeszcze nie wiem'); }).join('\n');
+    Promise.resolve(znacznik).then(function (z) {
+      var d = new FormData();
+      ['imie', 'tel', 'email', '_honey'].forEach(function (n) { d.append(n, el[n].value); });
+      d.append('zgoda', 'tak');
+      d.append('typ', ('Konfigurator: ' + kod()).slice(0, 80));
+      d.append('wiad', 'Kompozycja z konfiguratora na stronie:\n' + opis + '\n\nKod: ' + kod() + '\nLink: ' + link() + (el.uwagi.value.trim() ? '\n\nUwagi:\n' + el.uwagi.value.trim() : ''));
+      d.append('_z', z || ''); d.append('strona', location.pathname);
+      return new Promise(function (ok) { setTimeout(ok, z && (Date.now() / 1000 - parseInt(z, 10)) < 3.5 ? 3500 : 0); }).then(function () {
+        return fetch(cel, { method: 'POST', body: d, credentials: 'same-origin' });
+      });
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j.success) throw j;
+      fi.textContent = ''; znacznik = null; sukces(false); f.reset();
+    }).catch(function () {
+      fi.className = 'form-info blad'; znacznik = null;
+      fi.innerHTML = 'Nie udało się wysłać. Prosimy zadzwonić: <a href="tel:+48501552195">501 552 195</a> i podać kod kompozycji.';
+    }).then(function () { btn.disabled = false; });
+  });
+})();

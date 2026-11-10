@@ -609,3 +609,124 @@ p{margin:0 0 1em;text-wrap:pretty}
   .kat-tor .tor-nav{display:none}
 }
 @media (min-width:1025px){.kat-tor .tor-pas{grid-template-columns:repeat(8,minmax(0,1fr))}}
+
+/* konfigurator "Skomponuj swoje schody" (10.11.2026): kroki jak stopnie, kafle ze zdjeciem i kodem, kompozycja z kodem do telefonu */
+.konf{display:none}
+.js .konf{display:block}
+.konf .naglowek a{color:var(--morski-d);font-weight:600}
+.konf-ramka{background:var(--szary);clip-path:var(--rog);--st:18px;padding:clamp(18px,2.6vw,40px)}
+.konf-gora{margin-bottom:clamp(20px,2.4vw,32px)}
+.konf-postep{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:end}
+.konf-postep li{margin:0}
+.konf-postep button{width:100%;display:flex;align-items:center;gap:10px;border:0;background:none;padding:6px 0;text-align:left;color:var(--tx2)}
+.konf-pn{flex:none;display:grid;place-items:center;width:34px;height:34px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--linia);font:700 15px/1 var(--f);font-stretch:112%;color:var(--tx2);border-radius:3px;transition:background .25s,color .25s,box-shadow .25s}
+.konf-pt{display:grid;gap:2px;min-width:0}
+.konf-pt span{font:600 14.5px/1.15 var(--f);color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.konf-pt small{font:500 12.5px/1.2 var(--f);color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.konf-postep button:hover .konf-pn{box-shadow:inset 0 0 0 1.5px var(--morski)}
+.konf-postep .zrobione .konf-pn{background:var(--morski-d);color:#fff;box-shadow:none}
+.konf-postep .zrobione small{color:var(--morski-d);font-weight:700}
+.konf-postep .pominiete .konf-pn{background:var(--szary2)}
+.konf-postep [aria-current] .konf-pn{background:var(--grafit);color:#fff;box-shadow:none}
+/* pasek postepu: linia, ktora rosnie jak bieg schodow */
+.konf-pasek{position:relative;height:4px;margin-top:12px;background:var(--szary2)}
+.konf-pasek i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--morski);transition:width .45s var(--ease)}
+.konf-panel[hidden]{display:none}
+.konf-panel.wchodzi{animation:konfWejscie .35s var(--ease)}
+@keyframes konfWejscie{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.konf-gl{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-bottom:18px}
+.konf-gl h3{font-size:clamp(24px,2.2vw,32px);outline:0}
+.konf-gl p{margin:0;color:var(--tx2);flex-basis:100%}
+.konf-nr{order:-1;flex-basis:100%;font:600 13.5px/1 var(--f);color:var(--morski-d);margin:0!important}
+.konf-typy{margin-bottom:18px}
+.konf-typy .chip small{font-weight:500;color:var(--tx2);margin-left:2px}
+.konf-siatka{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:clamp(12px,1.3vw,20px)}
+.konf-siatka[hidden]{display:none}
+.konf-kafel{position:relative;display:block;border:0;padding:0;background:none;text-align:left;transition:transform .25s var(--ease)}
+.konf-foto{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:var(--szary2);clip-path:var(--rog);--st:9px}
+.konf-foto img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.konf-foto::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--morski);transition:box-shadow .2s}
+.konf-znak{position:absolute;left:8px;top:8px;z-index:2;width:30px;height:30px;background:var(--morski-d);opacity:0;transform:scale(.6);transition:opacity .2s,transform .25s var(--ease)}
+.konf-znak::before{content:"";position:absolute;left:10px;top:6px;width:8px;height:14px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.konf-pod{display:flex;align-items:baseline;gap:8px;padding:9px 2px 6px;border-bottom:2px solid var(--linia);transition:border-color .2s}
+.konf-pod b{font:700 19px/1.1 var(--f);font-stretch:112%;color:var(--tx)}
+.konf-pod span{font-size:14px;line-height:1.2;color:var(--tx2)}
+.konf-kafel:hover .konf-foto img{transform:scale(1.04)}
+.konf-kafel:hover .konf-pod{border-color:var(--morski)}
+.konf-kafel[aria-pressed="true"] .konf-foto::after{box-shadow:inset 0 0 0 4px var(--morski)}
+.konf-kafel[aria-pressed="true"] .konf-znak{opacity:1;transform:none}
+.konf-kafel[aria-pressed="true"] .konf-pod{border-color:var(--morski-d);border-bottom-width:3px;padding-bottom:5px}
+.konf-kafel[aria-pressed="true"] .konf-pod b{color:var(--morski-d)}
+.konf-nav{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;margin-top:clamp(20px,2.4vw,30px);padding-top:clamp(16px,2vw,24px);border-top:1px solid var(--linia)}
+.konf-nav .btn{min-width:180px}
+.konf-nav .btn[disabled]{background:var(--szary2);color:var(--tx2);cursor:default}
+.konf-nav .btn.puls{animation:konfPuls .5s var(--ease)}
+@keyframes konfPuls{40%{transform:scale(1.04)}}
+.konf-wstecz,.konf-pomin{border:0;background:none;min-height:48px;padding:0 4px;font:600 16px/1.2 var(--f);color:var(--tx);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:5px}
+.konf-pomin{margin-left:auto;color:var(--tx2)}
+.konf-wstecz:hover,.konf-pomin:hover{color:var(--morski-d)}
+/* kompozycja */
+.konf-wynik-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:start}
+.konf-mini{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.konf-mini li{display:grid;align-content:start;gap:8px;margin:0}
+.konf-mfoto{display:block;aspect-ratio:1/1;background:#fff;overflow:hidden;clip-path:var(--rog);--st:7px}
+.konf-mfoto img{width:100%;height:100%;object-fit:cover}
+.konf-mini li.brak .konf-mfoto{background:repeating-linear-gradient(135deg,#fff 0 8px,var(--szary2) 8px 9px)}
+.konf-mt{display:grid;gap:2px}
+.konf-mt small{font:500 12.5px/1.2 var(--f);color:var(--tx2)}
+.konf-mt b{font:700 15px/1.2 var(--f);color:var(--tx)}
+.konf-mini li.brak .konf-mt b{font-weight:500;color:var(--tx2)}
+.konf-zmien{justify-self:start;border:0;background:none;padding:4px 0;font:600 14px/1 var(--f);color:var(--morski-d);text-decoration:underline;text-underline-offset:4px}
+.konf-kod{display:grid;gap:6px;background:#fff;padding:18px 20px;clip-path:var(--rog);--st:10px;margin-bottom:16px;border-left:4px solid var(--morski)}
+.konf-kod span{font:600 13.5px/1 var(--f);color:var(--tx2)}
+.konf-kod output{font:700 clamp(22px,2.3vw,32px)/1.15 var(--f);font-stretch:112%;letter-spacing:.01em;color:var(--tx);word-break:break-word}
+.konf-akcje{display:flex;flex-wrap:wrap;gap:10px}
+.konf-info{margin:10px 0 0;min-height:1.4em;font-size:15px;font-weight:600;color:#1d6b3a}
+.konf-nav-wynik{margin-top:12px}
+.konf-form h4,.konf-wyslane h4{margin:0;font:700 22px/1.2 var(--f);font-stretch:112%}
+.konf-form textarea{min-height:90px}
+.konf-wyslane{align-content:start;outline:0}
+.konf-wyslane p{margin:0;color:var(--tx2)}
+.konf-wyslane strong{color:var(--tx);white-space:nowrap}
+.konf-podglad{font-size:14px;padding:10px 12px;background:var(--szary);border-left:3px solid var(--morski)}
+.konf-wyslane .btn{justify-self:start}
+@media (max-width:1024px){
+  .konf-postep{display:flex;overflow-x:auto;scrollbar-width:none;gap:18px;margin-inline:calc(-1*clamp(18px,2.6vw,40px));padding-inline:clamp(18px,2.6vw,40px)}
+  .konf-postep::-webkit-scrollbar{display:none}
+  .konf-postep li{flex:none}
+  .konf-wynik-in{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+  .konf-ramka{--st:12px;padding:18px var(--pad) 20px;margin-inline:calc(-1*var(--pad));clip-path:none}
+  .konf-postep{margin-inline:calc(-1*var(--pad));padding-inline:var(--pad);gap:14px}
+  .konf-pn{width:30px;height:30px;font-size:14px}
+  .konf-pt span{font-size:13.5px}
+  .konf-pt small{font-size:12px}
+  .konf-gora{margin-bottom:18px}
+  .konf-gl{margin-bottom:14px}
+  .konf-gl h3{font-size:24px}
+  .konf-gl p{font-size:15.5px}
+  /* telefon: dwa rzedy duzych kafli przesuwane palcem */
+  .konf-siatka{grid-template-columns:repeat(var(--kol),41vw);grid-auto-flow:row;gap:14px 12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);overscroll-behavior-x:contain;scrollbar-width:none;margin-inline:calc(-1*var(--pad));padding-inline:var(--pad);padding-bottom:2px}
+  .konf-siatka::-webkit-scrollbar{display:none}
+  .konf-siatka>*{scroll-snap-align:start}
+  .konf-siatka.konf-malo{grid-template-columns:repeat(2,calc((100vw - 2*var(--pad) - 12px)/2))}
+  .konf-pod b{font-size:17px}
+  .konf-pod span{font-size:13px}
+  .konf-nav{flex-wrap:wrap;gap:8px 16px}
+  .konf-nav .btn{order:3;flex-basis:100%;min-height:56px}
+  .konf-pomin{margin-left:auto}
+  .konf-mini{grid-template-columns:minmax(0,1fr);gap:8px}
+  .konf-mini li{grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:12px;background:#fff;padding:8px 12px 8px 8px}
+  .konf-mfoto{width:64px}
+  .konf-akcje .btn{flex:1 1 100%}
+  .konf-kod{padding:14px 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .konf-panel.wchodzi,.konf-nav .btn.puls{animation:none}
+  .konf-pasek i,.konf-kafel,.konf-foto img,.konf-znak,.konf-pn{transition:none}
+  .konf-kafel:hover .konf-foto img{transform:none}
+}
+/* telefon: dolny pasek Zadzwon/Wycena chowa sie, gdy konfigurator jest na ekranie (nie zaslania przycisku Dalej) */
+body.w-konf .mob{visibility:hidden}
+.konf-form[hidden],.konf-wyslane[hidden]{display:none}
