@@ -11,7 +11,7 @@
   --tx2:#4b575d;
   --linia:#d3dbdf;
   --morski:#308ca8;      /* kolor z logo */
-  --morski-d:#22738c;    /* przyciski i linki (kontrast AA z bialym) */
+  --morski-d:#1f6c84;    /* przyciski i linki (kontrast AA z bialym i z --szary2 #e1e7ea: 4.76; 12.11 PageSpeed) */
   --morski-j:#5db3ce;    /* na grafitowym tle */
   --f:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
   --wrap:1320px;
