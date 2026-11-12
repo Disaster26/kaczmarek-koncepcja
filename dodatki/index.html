@@ -25,7 +25,7 @@
 <link rel="manifest" href="../site.webmanifest">
 <link rel="preload" href="../fonts/archivo-pl-a.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="../img/dyw-3-960.webp" imagesrcset="../img/dyw-3-640.webp 640w, ../img/dyw-3-960.webp 960w, ../img/dyw-3.webp 1300w" imagesizes="(min-width:1025px) min(1460px, calc((100vh - 140px) * 1.5)), max(100vw, calc(48vh * 1.34))" fetchpriority="high">
-<link rel="stylesheet" href="../style.css?v=20261112e">
+<link rel="stylesheet" href="../style.css?v=20261112f">
 <script>document.documentElement.className='js';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});</script>
 <script type="application/ld+json">
 {
@@ -116,12 +116,13 @@
   <div class="wrap top-in">
     <a href="../" class="logo" aria-label="Kaczmarek Schody - strona główna"><img src="../img/logo.svg" alt="Kaczmarek Schody" width="307" height="83"></a>
     <nav class="menu" id="menu" aria-label="Menu główne">
-      <a href="../#rodzaje">Rodzaje schodów</a>
+      <a href="../schody/">Rodzaje schodów</a>
+      <a href="../oswietlenie-led/">Oświetlenie LED</a>
+      <a href="../dodatki/" aria-current="page">Drewno i detale</a>
+      <a href="../kompozycja-balustrady/" class="menu-konf">Kompozycja balustrady</a>
       <a href="../realizacje.html">Realizacje</a>
-      <a href="../#swiatlo">Oświetlenie LED</a>
-      <a href="../#drewno" aria-current="page">Drewno i detale</a>
-      <a href="../#o-firmie">O firmie</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="../o-firmie/">O firmie</a>
+      <a href="../kontakt/">Kontakt</a>
       <a href="tel:+48501552195" class="menu-tel">Zadzwoń: 501 552 195</a>
     </nav>
     <a href="tel:+48501552195" class="tel-top" id="telTop" aria-label="Zadzwoń: 501 552 195">
@@ -147,172 +148,17 @@
         <p class="lead">O wyglądzie schodów w dużej mierze decydują detale. Poręcze, tralki, szkło, relingi i słupy wybierają Państwo z naszej oferty, a my pomagamy dobrać je do konstrukcji i wnętrza.</p>
         <div class="hero-akcje" id="heroAkcje">
           <a href="#kontakt" class="btn">Zamów wycenę</a>
-          <a href="#konfigurator" class="link">Skomponuj balustradę</a>
+          <a href="../kompozycja-balustrady/" class="link">Skomponuj balustradę</a>
         </div>
       </div>
     </div>
   </section>
 
 
-  <section class="sekcja konf" id="konfigurator" aria-label="Konfigurator balustrady">
+  <section class="sekcja konf-cta" id="kompozycja">
     <div class="wrap">
-      <div class="naglowek"><h2 class="z">Skomponuj swoje schody</h2><p>Drewno, poręcz, wypełnienie balustrady, słup i jego zakończenie: wystarczy wybrać krok po kroku, a na końcu pojawi się krótki kod, np. DĄB · C3 · T12 · A5 · B2. Wszystkie wzory są też w <a href="#katalog">katalogu poniżej</a>.</p></div>
-      <div class="konf-ramka">
-        <div class="konf-gora">
-          <ol class="konf-postep" aria-label="Kroki konfiguratora"><li><button type="button" data-idz="drewno"><span class="konf-pn">1</span><span class="konf-pt"><span>Drewno</span><small data-wyb="drewno">do wyboru</small></span></button></li><li><button type="button" data-idz="porecz"><span class="konf-pn">2</span><span class="konf-pt"><span>Poręcz</span><small data-wyb="porecz">do wyboru</small></span></button></li><li><button type="button" data-idz="wypelnienie"><span class="konf-pn">3</span><span class="konf-pt"><span>Wypełnienie</span><small data-wyb="wypelnienie">do wyboru</small></span></button></li><li><button type="button" data-idz="slup"><span class="konf-pn">4</span><span class="konf-pt"><span>Słup</span><small data-wyb="slup">do wyboru</small></span></button></li><li><button type="button" data-idz="zakonczenie"><span class="konf-pn">5</span><span class="konf-pt"><span>Zakończenie</span><small data-wyb="zakonczenie">do wyboru</small></span></button></li><li><button type="button" data-idz="kompozycja"><span class="konf-pn">6</span><span class="konf-pt"><span>Kompozycja</span><small>kod i wysyłka</small></span></button></li></ol>
-          <div class="konf-pasek" aria-hidden="true"><i id="konfPasek"></i></div>
-        </div>
-<div class="konf-panel" data-krok="drewno">
-  <div class="konf-gl"><p class="konf-nr">Krok 1 z 5</p><h3 tabindex="-1">Drewno</h3><p>Gatunek drewna na stopnie, poręcz i słupy.</p></div>
-<div class="konf-siatka" data-grupa="gatunki" style="--kol:4">
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="buk" data-kod="BUK" data-nazwa="Buk"><span class="konf-foto"><img data-src="../img/det-buk.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>Buk</b></span><span class="sr">Buk</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="dab-szczotkowany" data-kod="DĄB SZCZOTKOWANY" data-nazwa="Dąb szczotkowany"><span class="konf-foto"><img data-src="../img/det-dab-szczotkowany.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>Dąb szczotkowany</b></span><span class="sr">Dąb szczotkowany</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="buk-z-rdzeniem" data-kod="BUK Z RDZENIEM" data-nazwa="Buk z rdzeniem"><span class="konf-foto"><img data-src="../img/det-buk-z-rdzeniem.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>Buk z rdzeniem</b></span><span class="sr">Buk z rdzeniem</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="dab" data-kod="DĄB" data-nazwa="Dąb"><span class="konf-foto"><img data-src="../img/det-dab.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>Dąb</b></span><span class="sr">Dąb</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="jesion" data-kod="JESION" data-nazwa="Jesion"><span class="konf-foto"><img data-src="../img/det-jesion.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>Jesion</b></span><span class="sr">Jesion</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="klon" data-kod="KLON" data-nazwa="Klon"><span class="konf-foto"><img data-src="../img/det-klon.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>Klon</b></span><span class="sr">Klon</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="merbau-natura" data-kod="MERBAU NATURA" data-nazwa="Merbau natura"><span class="konf-foto"><img data-src="../img/det-merbau-natura.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>Merbau natura</b></span><span class="sr">Merbau natura</span></button>
-</div>
-  <div class="konf-nav">
-    <span></span><button type="button" class="konf-pomin" data-pomin>Jeszcze nie wiem</button><button type="button" class="btn konf-dalej" data-dalej disabled>Dalej</button>
-  </div>
-</div>
-<div class="konf-panel" data-krok="porecz" hidden>
-  <div class="konf-gl"><p class="konf-nr">Krok 2 z 5</p><h3 tabindex="-1">Poręcz</h3><p>Profil poręczy, którą prowadzi się dłoń.</p></div>
-<div class="konf-siatka konf-malo" data-grupa="porecze" style="--kol:2">
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="c1" data-kod="C1" data-nazwa="Poręcz C1"><span class="konf-foto"><img data-src="../img/det-c1.webp" alt="" width="313" height="313" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>C1</b></span><span class="sr">Poręcz C1</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="c2" data-kod="C2" data-nazwa="Poręcz C2"><span class="konf-foto"><img data-src="../img/det-c2.webp" alt="" width="313" height="313" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>C2</b></span><span class="sr">Poręcz C2</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="c3" data-kod="C3" data-nazwa="Poręcz C3"><span class="konf-foto"><img data-src="../img/det-c3.webp" alt="" width="313" height="313" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>C3</b></span><span class="sr">Poręcz C3</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="c4" data-kod="C4" data-nazwa="Poręcz C4"><span class="konf-foto"><img data-src="../img/det-c4.webp" alt="" width="313" height="313" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>C4</b></span><span class="sr">Poręcz C4</span></button>
-</div>
-  <div class="konf-nav">
-    <button type="button" class="konf-wstecz" data-wstecz>Wstecz</button><button type="button" class="konf-pomin" data-pomin>Jeszcze nie wiem</button><button type="button" class="btn konf-dalej" data-dalej disabled>Dalej</button>
-  </div>
-</div>
-<div class="konf-panel" data-krok="wypelnienie" hidden>
-  <div class="konf-gl"><p class="konf-nr">Krok 3 z 5</p><h3 tabindex="-1">Wypełnienie balustrady</h3><p>Tralki, deski, szkło albo relingi.</p></div>
-<div class="filtry konf-typy" role="group" aria-label="Rodzaj wypełnienia"><button type="button" class="chip aktywny" data-grupa="tralki" aria-pressed="true">Tralki <small>25</small></button><button type="button" class="chip" data-grupa="deski" aria-pressed="false">Deski <small>3</small></button><button type="button" class="chip" data-grupa="szklo" aria-pressed="false">Szkło <small>3</small></button><button type="button" class="chip" data-grupa="relingi" aria-pressed="false">Relingi <small>3</small></button></div>
-<div class="konf-siatka" data-grupa="tralki" style="--kol:13">
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t1" data-kod="T1" data-nazwa="Tralka 1"><span class="konf-foto"><img data-src="../img/det-t1.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>1</b><span>tralka</span></span><span class="sr">Tralka 1</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t2" data-kod="T2" data-nazwa="Tralka 2"><span class="konf-foto"><img data-src="../img/det-t2.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>2</b><span>tralka</span></span><span class="sr">Tralka 2</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t3" data-kod="T3" data-nazwa="Tralka 3"><span class="konf-foto"><img data-src="../img/det-t3.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>3</b><span>tralka</span></span><span class="sr">Tralka 3</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t4" data-kod="T4" data-nazwa="Tralka 4"><span class="konf-foto"><img data-src="../img/det-t4.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>4</b><span>tralka</span></span><span class="sr">Tralka 4</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t5" data-kod="T5" data-nazwa="Tralka 5"><span class="konf-foto"><img data-src="../img/det-t5.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>5</b><span>tralka</span></span><span class="sr">Tralka 5</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t6" data-kod="T6" data-nazwa="Tralka 6"><span class="konf-foto"><img data-src="../img/det-t6.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>6</b><span>tralka</span></span><span class="sr">Tralka 6</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t7" data-kod="T7" data-nazwa="Tralka 7"><span class="konf-foto"><img data-src="../img/det-t7.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>7</b><span>tralka</span></span><span class="sr">Tralka 7</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t8" data-kod="T8" data-nazwa="Tralka 8"><span class="konf-foto"><img data-src="../img/det-t8.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>8</b><span>tralka</span></span><span class="sr">Tralka 8</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t9" data-kod="T9" data-nazwa="Tralka 9"><span class="konf-foto"><img data-src="../img/det-t9.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>9</b><span>tralka</span></span><span class="sr">Tralka 9</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t10" data-kod="T10" data-nazwa="Tralka 10"><span class="konf-foto"><img data-src="../img/det-t10.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>10</b><span>tralka</span></span><span class="sr">Tralka 10</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t11" data-kod="T11" data-nazwa="Tralka 11"><span class="konf-foto"><img data-src="../img/det-t11.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>11</b><span>tralka</span></span><span class="sr">Tralka 11</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t12" data-kod="T12" data-nazwa="Tralka 12"><span class="konf-foto"><img data-src="../img/det-t12.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>12</b><span>tralka</span></span><span class="sr">Tralka 12</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t13" data-kod="T13" data-nazwa="Tralka 13"><span class="konf-foto"><img data-src="../img/det-t13.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>13</b><span>tralka</span></span><span class="sr">Tralka 13</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t14" data-kod="T14" data-nazwa="Tralka 14"><span class="konf-foto"><img data-src="../img/det-t14.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>14</b><span>tralka</span></span><span class="sr">Tralka 14</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t15" data-kod="T15" data-nazwa="Tralka 15"><span class="konf-foto"><img data-src="../img/det-t15.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>15</b><span>tralka</span></span><span class="sr">Tralka 15</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t16" data-kod="T16" data-nazwa="Tralka 16"><span class="konf-foto"><img data-src="../img/det-t16.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>16</b><span>tralka</span></span><span class="sr">Tralka 16</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t17" data-kod="T17" data-nazwa="Tralka 17"><span class="konf-foto"><img data-src="../img/det-t17.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>17</b><span>tralka</span></span><span class="sr">Tralka 17</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t18" data-kod="T18" data-nazwa="Tralka 18"><span class="konf-foto"><img data-src="../img/det-t18.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>18</b><span>tralka</span></span><span class="sr">Tralka 18</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t19" data-kod="T19" data-nazwa="Tralka 19"><span class="konf-foto"><img data-src="../img/det-t19.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>19</b><span>tralka</span></span><span class="sr">Tralka 19</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t20" data-kod="T20" data-nazwa="Tralka 20"><span class="konf-foto"><img data-src="../img/det-t20.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>20</b><span>tralka</span></span><span class="sr">Tralka 20</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t22" data-kod="T22" data-nazwa="Tralka 22"><span class="konf-foto"><img data-src="../img/det-t22.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>22</b><span>tralka</span></span><span class="sr">Tralka 22</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t23" data-kod="T23" data-nazwa="Tralka 23"><span class="konf-foto"><img data-src="../img/det-t23.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>23</b><span>tralka</span></span><span class="sr">Tralka 23</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t24" data-kod="T24" data-nazwa="Tralka 24"><span class="konf-foto"><img data-src="../img/det-t24.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>24</b><span>tralka</span></span><span class="sr">Tralka 24</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t25" data-kod="T25" data-nazwa="Tralka 25"><span class="konf-foto"><img data-src="../img/det-t25.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>25</b><span>tralka</span></span><span class="sr">Tralka 25</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="t26" data-kod="T26" data-nazwa="Tralka 26"><span class="konf-foto"><img data-src="../img/det-t26.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>26</b><span>tralka</span></span><span class="sr">Tralka 26</span></button>
-</div>
-<div class="konf-siatka konf-malo" data-grupa="deski" style="--kol:2" hidden>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="1a" data-kod="1a" data-nazwa="Deski 1a - trzy deski"><span class="konf-foto"><img data-src="../img/det-1a.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>1a</b><span>trzy deski</span></span><span class="sr">Deski 1a - trzy deski</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="1b" data-kod="1b" data-nazwa="Deski 1b - poręcz i dwie deski"><span class="konf-foto"><img data-src="../img/det-1b.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>1b</b><span>poręcz i dwie deski</span></span><span class="sr">Deski 1b - poręcz i dwie deski</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="1c" data-kod="1c" data-nazwa="Deski 1c - dwie deski"><span class="konf-foto"><img data-src="../img/det-1c.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>1c</b><span>dwie deski</span></span><span class="sr">Deski 1c - dwie deski</span></button>
-</div>
-<div class="konf-siatka konf-malo" data-grupa="szklo" style="--kol:2" hidden>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="2b" data-kod="2b" data-nazwa="Szkło 2b"><span class="konf-foto"><img data-src="../img/det-2b.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>2b</b></span><span class="sr">Szkło 2b</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="2c" data-kod="2c" data-nazwa="Szkło 2c"><span class="konf-foto"><img data-src="../img/det-2c.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>2c</b></span><span class="sr">Szkło 2c</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="2d" data-kod="2d" data-nazwa="Szkło 2d"><span class="konf-foto"><img data-src="../img/det-2d.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>2d</b></span><span class="sr">Szkło 2d</span></button>
-</div>
-<div class="konf-siatka konf-malo" data-grupa="relingi" style="--kol:2" hidden>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="3a" data-kod="3a" data-nazwa="Relingi 3a"><span class="konf-foto"><img data-src="../img/det-3a.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>3a</b></span><span class="sr">Relingi 3a</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="3b" data-kod="3b" data-nazwa="Relingi 3b"><span class="konf-foto"><img data-src="../img/det-3b.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>3b</b></span><span class="sr">Relingi 3b</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="3c" data-kod="3c" data-nazwa="Relingi 3c"><span class="konf-foto"><img data-src="../img/det-3c.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>3c</b></span><span class="sr">Relingi 3c</span></button>
-</div>
-  <div class="konf-nav">
-    <button type="button" class="konf-wstecz" data-wstecz>Wstecz</button><button type="button" class="konf-pomin" data-pomin>Jeszcze nie wiem</button><button type="button" class="btn konf-dalej" data-dalej disabled>Dalej</button>
-  </div>
-</div>
-<div class="konf-panel" data-krok="slup" hidden>
-  <div class="konf-gl"><p class="konf-nr">Krok 4 z 5</p><h3 tabindex="-1">Słup</h3><p>Słup na początku i końcu balustrady.</p></div>
-<div class="konf-siatka" data-grupa="slupy" style="--kol:7">
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a1" data-kod="A1" data-nazwa="Słup A1"><span class="konf-foto"><img data-src="../img/det-a1.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A1</b></span><span class="sr">Słup A1</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a2" data-kod="A2" data-nazwa="Słup A2"><span class="konf-foto"><img data-src="../img/det-a2.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A2</b></span><span class="sr">Słup A2</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a3" data-kod="A3" data-nazwa="Słup A3"><span class="konf-foto"><img data-src="../img/det-a3.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A3</b></span><span class="sr">Słup A3</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a4" data-kod="A4" data-nazwa="Słup A4"><span class="konf-foto"><img data-src="../img/det-a4.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A4</b></span><span class="sr">Słup A4</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a5" data-kod="A5" data-nazwa="Słup A5"><span class="konf-foto"><img data-src="../img/det-a5.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A5</b></span><span class="sr">Słup A5</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a6" data-kod="A6" data-nazwa="Słup A6"><span class="konf-foto"><img data-src="../img/det-a6.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A6</b></span><span class="sr">Słup A6</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a7" data-kod="A7" data-nazwa="Słup A7"><span class="konf-foto"><img data-src="../img/det-a7.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A7</b></span><span class="sr">Słup A7</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a8" data-kod="A8" data-nazwa="Słup A8"><span class="konf-foto"><img data-src="../img/det-a8.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A8</b></span><span class="sr">Słup A8</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a9" data-kod="A9" data-nazwa="Słup A9"><span class="konf-foto"><img data-src="../img/det-a9.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A9</b></span><span class="sr">Słup A9</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a10" data-kod="A10" data-nazwa="Słup A10"><span class="konf-foto"><img data-src="../img/det-a10.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A10</b></span><span class="sr">Słup A10</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a11" data-kod="A11" data-nazwa="Słup A11"><span class="konf-foto"><img data-src="../img/det-a11.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A11</b></span><span class="sr">Słup A11</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a12" data-kod="A12" data-nazwa="Słup A12"><span class="konf-foto"><img data-src="../img/det-a12.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A12</b></span><span class="sr">Słup A12</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="a13" data-kod="A13" data-nazwa="Słup A13"><span class="konf-foto"><img data-src="../img/det-a13.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>A13</b></span><span class="sr">Słup A13</span></button>
-</div>
-  <div class="konf-nav">
-    <button type="button" class="konf-wstecz" data-wstecz>Wstecz</button><button type="button" class="konf-pomin" data-pomin>Jeszcze nie wiem</button><button type="button" class="btn konf-dalej" data-dalej disabled>Dalej</button>
-  </div>
-</div>
-<div class="konf-panel" data-krok="zakonczenie" hidden>
-  <div class="konf-gl"><p class="konf-nr">Krok 5 z 5</p><h3 tabindex="-1">Zakończenie słupa</h3><p>Górne zakończenie słupa.</p></div>
-<div class="konf-siatka" data-grupa="zakonczenia" style="--kol:4">
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b1" data-kod="B1" data-nazwa="Zakończenie słupa B1"><span class="konf-foto"><img data-src="../img/det-b1.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B1</b></span><span class="sr">Zakończenie słupa B1</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b2" data-kod="B2" data-nazwa="Zakończenie słupa B2"><span class="konf-foto"><img data-src="../img/det-b2.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B2</b></span><span class="sr">Zakończenie słupa B2</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b3" data-kod="B3" data-nazwa="Zakończenie słupa B3"><span class="konf-foto"><img data-src="../img/det-b3.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B3</b></span><span class="sr">Zakończenie słupa B3</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b4" data-kod="B4" data-nazwa="Zakończenie słupa B4"><span class="konf-foto"><img data-src="../img/det-b4.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B4</b></span><span class="sr">Zakończenie słupa B4</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b5" data-kod="B5" data-nazwa="Zakończenie słupa B5"><span class="konf-foto"><img data-src="../img/det-b5.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B5</b></span><span class="sr">Zakończenie słupa B5</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b6" data-kod="B6" data-nazwa="Zakończenie słupa B6"><span class="konf-foto"><img data-src="../img/det-b6.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B6</b></span><span class="sr">Zakończenie słupa B6</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b7" data-kod="B7" data-nazwa="Zakończenie słupa B7"><span class="konf-foto"><img data-src="../img/det-b7.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B7</b></span><span class="sr">Zakończenie słupa B7</span></button>
-<button type="button" class="konf-kafel" aria-pressed="false" data-id="b8" data-kod="B8" data-nazwa="Zakończenie słupa B8"><span class="konf-foto"><img data-src="../img/det-b8.webp" alt="" width="500" height="500" data-lz decoding="async"><span class="konf-znak" aria-hidden="true"></span></span><span class="konf-pod"><b>B8</b></span><span class="sr">Zakończenie słupa B8</span></button>
-</div>
-  <div class="konf-nav">
-    <button type="button" class="konf-wstecz" data-wstecz>Wstecz</button><button type="button" class="konf-pomin" data-pomin>Jeszcze nie wiem</button><button type="button" class="btn konf-dalej" data-dalej disabled>Dalej</button>
-  </div>
-</div>
-<div class="konf-panel konf-wynik" data-krok="kompozycja" hidden>
-  <div class="konf-gl"><p class="konf-nr">Gotowe</p><h3 tabindex="-1">Twoja kompozycja</h3><p>Ten kod wystarczy podać przez telefon. Można też wysłać kompozycję do nas, oddzwonimy, aby omówić szczegóły i umówić pomiar.</p></div>
-  <div class="konf-wynik-in">
-    <div class="konf-lewa">
-      <ul class="konf-mini" id="konfMini"></ul>
-      <div class="konf-kod"><span>Kod kompozycji</span><output id="konfKod" aria-live="polite"></output></div>
-      <div class="konf-akcje">
-        <button type="button" class="btn" id="konfKopiuj">Skopiuj kod</button>
-        <button type="button" class="btn btn-obrys" id="konfLink">Skopiuj link</button>
-        <a class="btn btn-obrys" href="tel:+48501552195">Zadzwoń: 501 552 195</a>
-      </div>
-      <p class="konf-info" id="konfInfo" role="status" aria-live="polite"></p>
-      <div class="konf-nav konf-nav-wynik"><button type="button" class="konf-wstecz" data-wstecz>Wstecz</button><button type="button" class="konf-pomin" id="konfOdNowa">Zacznij od nowa</button></div>
-    </div>
-    <div class="konf-prawa">
-      <form class="formularz konf-form" id="konfForm" novalidate>
-        <h4>Wyślij do Kaczmarek Schody</h4>
-        <div class="dwa">
-          <label>Imię i nazwisko<input name="imie" autocomplete="name" required aria-required="true" maxlength="100"></label>
-          <label>Telefon<input name="tel" type="tel" autocomplete="tel" inputmode="tel" required aria-required="true" maxlength="30"></label>
-        </div>
-        <label><span>E-mail <small>(opcjonalnie)</small></span><input name="email" type="email" autocomplete="email" inputmode="email" maxlength="120"></label>
-        <label>Uwagi<textarea name="uwagi" rows="3" maxlength="2000" placeholder="Np. wymiary otworu, miejscowość, termin"></textarea></label>
-        <div class="pulapka" aria-hidden="true"><label>Nie wypełniać<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
-        <label class="zgoda"><input type="checkbox" name="zgoda" value="tak" required aria-required="true"> <span>Wyrażam zgodę na przetwarzanie danych w celu odpowiedzi na zapytanie. Administrator: KACZMAREK SCHODY Krzysztof Kaczmarek, <a href="../polityka-prywatnosci/">polityka prywatności</a>.</span></label>
-        <button type="submit" class="btn">Wyślij kompozycję</button>
-        <p class="form-info" id="konfFormInfo" role="status" aria-live="polite"></p>
-      </form>
-      <div class="formularz konf-wyslane" id="konfWyslane" hidden tabindex="-1">
-        <h4>Dziękujemy, kompozycja wysłana</h4>
-        <p>Oddzwonimy, aby omówić szczegóły i umówić pomiar. Kod Państwa kompozycji: <strong id="konfKodOk"></strong></p>
-        <p class="konf-podglad" id="konfPodglad" hidden>To jest podgląd strony, więc nic nie zostało wysłane. Na kaczmarekschody.pl kompozycja trafi na biuro@kaczmarekschody.pl.</p>
-        <a class="btn btn-obrys" href="tel:+48501552195">Zadzwoń: 501 552 195</a>
-      </div>
-    </div>
-  </div>
-</div>
-      </div>
+      <div class="naglowek"><h2 class="z">Kompozycja balustrady</h2><p>Wybierz krok po kroku gatunek drewna, poręcz, tralki albo szkło, słup i jego zakończenie. Na końcu dostaną Państwo krótki kod, np. DĄB · C3 · T12 · A5 · B2 - wystarczy podać go przez telefon albo wysłać jednym kliknięciem.</p></div>
+      <a class="btn" href="../kompozycja-balustrady/">Skomponuj balustradę</a>
     </div>
   </section>
 
@@ -588,9 +434,13 @@
       <a href="https://www.facebook.com/kaczmarekschody/" target="_blank" rel="noopener">Facebook: Kaczmarek Schody</a>
     </div>
     <nav class="st-linki" aria-label="Na skróty">
-      <a href="../#rodzaje">Rodzaje schodów</a>
+      <a href="../schody/">Rodzaje schodów</a>
       <a href="../realizacje.html">Realizacje i filmy</a>
-      <a href="../dodatki/">Detale do schodów</a>
+      <a href="../dodatki/">Drewno i detale</a>
+      <a href="../kompozycja-balustrady/">Kompozycja balustrady</a>
+      <a href="../oswietlenie-led/">Oświetlenie LED</a>
+      <a href="../o-firmie/">O firmie</a>
+      <a href="../kontakt/">Kontakt</a>
       <a href="../schody/schody-na-beton/">Schody na beton</a>
       <a href="../schody/schody-dywanowe/">Schody dywanowe</a>
     </nav>
@@ -628,6 +478,6 @@
   <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="Następne zdjęcie">&#8250;</button>
 </div>
 
-<script src="../app.js?v=20261112e"></script>
+<script src="../app.js?v=20261112f"></script>
 </body>
 </html>

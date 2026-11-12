@@ -740,3 +740,8 @@ p{margin:0 0 1em;text-wrap:pretty}
 /* telefon: dolny pasek Zadzwon/Wycena chowa sie, gdy konfigurator jest na ekranie (nie zaslania przycisku Dalej) */
 body.w-konf .mob{visibility:hidden}
 .konf-form[hidden],.konf-wyslane[hidden]{display:none}
+/* 12.11: menu z 7 podstronami; Kompozycja balustrady wyrozniona (klient: ma byc widoczna) */
+.menu a.menu-konf{color:var(--morski-d)}
+.menu a.menu-konf::before{content:"";display:inline-block;width:.55em;height:.55em;margin-right:.4em;border:2px solid var(--morski);border-radius:2px;vertical-align:.05em}
+@media (min-width:1025px) and (max-width:1440px){.menu{gap:clamp(12px,1.25vw,22px)}.menu a{font-size:14.5px}.tel-top span{display:none}}
+.konf-cta .wrap{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
