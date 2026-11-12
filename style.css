@@ -187,8 +187,8 @@ p{margin:0 0 1em;text-wrap:pretty}
 .inne-gora{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:24px}
 .inne-gora p{margin:0;color:var(--tx2);max-width:60ch}
 .inne .tor-pas{--odst:clamp(14px,1.6vw,24px)}
-.kafel{width:calc((100% - 4*var(--odst))/5);min-width:220px;text-decoration:none;display:block}
-.kafel-foto{display:block;aspect-ratio:1/1;overflow:hidden;clip-path:var(--rog);background:var(--szary2)}
+.kafel{width:calc((100% - 3*var(--odst))/4);min-width:220px;text-decoration:none;display:block}
+.kafel-foto{display:block;aspect-ratio:5/4;overflow:hidden;clip-path:var(--rog);background:var(--szary2)}
 .kafel-foto img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .kafel:hover .kafel-foto img{transform:scale(1.04)}
 .kafel strong{display:block;margin-top:14px;font:650 18px/1.2 var(--f);font-stretch:108%}
