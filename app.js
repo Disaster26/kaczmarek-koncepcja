@@ -287,7 +287,7 @@
   var znacznik = null;
   function pobierzZnacznik() {
     if (!cel || znacznik) return;
-    znacznik = fetch(cel + '?znacznik=1', { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { return j.z; }).catch(function () { znacznik = null; return ''; });
+    znacznik = fetch(cel + '?znacznik=1&t=' + Date.now(), { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { return j.z; }).catch(function () { znacznik = null; return ''; });
   }
   form.addEventListener('focusin', pobierzZnacznik, { once: true });
   function blad(pole, tekst) {
@@ -607,7 +607,7 @@
   var f = $('#konfForm'), fi = $('#konfFormInfo'), cel = document.body.getAttribute('data-form'), znacznik = null;
   function pobierz() {
     if (!cel || znacznik) return;
-    znacznik = fetch(cel + '?znacznik=1', { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { return j.z; }).catch(function () { znacznik = null; return ''; });
+    znacznik = fetch(cel + '?znacznik=1&t=' + Date.now(), { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) { return j.z; }).catch(function () { znacznik = null; return ''; });
   }
   f.addEventListener('focusin', pobierz, { once: true });
   function blad(pole, t) { fi.className = 'form-info blad'; fi.textContent = t; if (pole) { pole.setAttribute('aria-invalid', 'true'); pole.focus(); } }
