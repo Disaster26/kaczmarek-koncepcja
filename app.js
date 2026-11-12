@@ -84,9 +84,10 @@
   function wynik() { return DANE.filter(function (z) { return filtr === 'all' || z.t.indexOf(filtr) > -1; }); }
   function galeriaPelna() {
     if (!DANE) return null;
-    return wynik().map(function (z) { return { src: 'img/' + z.s + '.webp', opis: z.o }; });
+    return wynik().map(function (z) { return { src: z.u || 'img/' + z.s + '.webp', opis: z.o }; });
   }
   function el(z) {
+    if (z.u) return elDodane(z);
     var b = document.createElement('button');
     b.type = 'button';
     b.setAttribute('data-pelne', 'img/' + z.s + '.webp');
@@ -121,6 +122,47 @@
   }
   function pokazChip(c) { if (c && c.parentNode.scrollWidth > c.parentNode.clientWidth) c.parentNode.scrollLeft = c.offsetLeft - c.parentNode.offsetLeft - 16; }
   pokazChip(document.querySelector('.chip[data-filtr].aktywny'));
+
+  /* ---------------- zdjecia z panelu WordPress "Zdjecia realizacji" (tylko wersja na kaczmarekschody.pl: <body data-zdjecia>)
+     dodane: na poczatku galerii Realizacje i na podstronie danego rodzaju; ukryte: znikaja ze wszystkich galerii */
+  function elDodane(z) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('data-pelne', z.u);
+    b.setAttribute('data-opis', z.o);
+    b.setAttribute('aria-label', z.o + ' - powiększ zdjęcie');
+    var i = document.createElement('img');
+    i.src = z.m || z.u;
+    if (z.ss) { i.srcset = z.ss; i.sizes = '(min-width:1280px) 420px, (min-width:761px) 31vw, 50vw'; }
+    i.alt = z.o; if (z.w && z.h) { i.width = z.w; i.height = z.h; } i.loading = 'lazy'; i.decoding = 'async';
+    b.appendChild(i);
+    return b;
+  }
+  var zrodloZdjec = document.body.getAttribute('data-zdjecia');
+  if (zrodloZdjec && window.fetch) {
+    fetch(zrodloZdjec, { cache: 'no-cache', credentials: 'omit' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (!j || typeof j !== 'object') return;
+      var ukryte = Array.isArray(j.ukryte) ? j.ukryte.filter(function (n) { return /^[a-z0-9-]+$/.test(n); }) : [];
+      var dodane = (Array.isArray(j.dodane) ? j.dodane : []).filter(function (z) {
+        return z && typeof z.u === 'string' && /^(https?:)?\/\//.test(z.u) && Array.isArray(z.t);
+      }).map(function (z) { return { u: z.u, m: z.m, ss: typeof z.ss === 'string' ? z.ss : '', w: +z.w || 0, h: +z.h || 0, o: String(z.o || 'Realizacja Kaczmarek Schody'), t: z.t }; });
+      if (!ukryte.length && !dodane.length) return;
+      if (ukryte.length) {
+        document.querySelectorAll('[data-lb] button[data-pelne]').forEach(function (b) {
+          var m = (b.getAttribute('data-pelne') || '').match(/(?:^|\/)img\/([a-z0-9-]+)\.webp$/);
+          if (m && ukryte.indexOf(m[1]) > -1 && b.closest('[data-lb]').querySelectorAll('button[data-pelne]').length > 1) (b.closest('.rp') || b).remove();   /* karta nigdy nie zostaje pusta */
+        });
+      }
+      if (DANE) {
+        DANE = dodane.concat(DANE.filter(function (z) { return ukryte.indexOf(z.s) < 0; }));
+        rysuj(true);
+      }
+      document.querySelectorAll('.galeria[data-typ]').forEach(function (g) {
+        var typ = g.getAttribute('data-typ'), pierwszy = g.firstChild;
+        dodane.filter(function (z) { return z.t.indexOf(typ) > -1; }).forEach(function (z) { g.insertBefore(elDodane(z), pierwszy); });
+      });
+    }).catch(function () {});
+  }
 
   /* filtr filmow: ?typ=bet|led|bal */
   var filmy = document.querySelectorAll('#filmySiatka .film');
